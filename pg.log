@@ -1,0 +1,1966 @@
+ LOG:  database system was shut down at 2024-01-18 16:44:14 CET
+ LOG:  database system is ready to accept connections
+[unknown] LOG:  connection received: host=[local]
+[unknown] LOG:  connection received: host=[local]
+postgres LOG:  connection authorized: user=postgres database=template1 application_name=psql
+postgres LOG:  statement: 
+[unknown] LOG:  connection received: host=[local]
+postgres LOG:  connection authorized: user=postgres database=template1 application_name=psql
+postgres LOG:  statement: 
+[unknown] LOG:  connection received: host=[local]
+postgres LOG:  connection authorized: user=postgres database=template1 application_name=psql
+postgres LOG:  statement: 
+[unknown] LOG:  connection received: host=127.0.0.1 port=42690
+postgres LOG:  connection authorized: user=postgres database=postgres application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+postgres LOG:  statement: SELECT 'CREATE USER freecodecamp WITH CREATEDB' WHERE NOT EXISTS (SELECT FROM pg_catalog.pg_roles WHERE rolname='freecodecamp')
+postgres LOG:  statement: CREATE USER freecodecamp WITH CREATEDB
+ LOG:  received fast shutdown request
+ LOG:  aborting any active transactions
+ LOG:  background worker "logical replication launcher" (PID 586) exited with exit code 1
+ LOG:  shutting down
+ LOG:  database system is shut down
+ LOG:  database system was shut down at 2025-03-05 21:08:58 CET
+ LOG:  database system is ready to accept connections
+[unknown] LOG:  connection received: host=[local]
+[unknown] LOG:  connection received: host=[local]
+postgres LOG:  connection authorized: user=postgres database=template1 application_name=psql
+postgres LOG:  statement: 
+[unknown] LOG:  connection received: host=[local]
+postgres LOG:  connection authorized: user=postgres database=template1 application_name=psql
+postgres LOG:  statement: 
+[unknown] LOG:  connection received: host=[local]
+postgres LOG:  connection authorized: user=postgres database=template1 application_name=psql
+postgres LOG:  statement: 
+[unknown] LOG:  connection received: host=127.0.0.1 port=53606
+postgres LOG:  connection authorized: user=postgres database=postgres application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+postgres LOG:  statement: SELECT 'CREATE USER freecodecamp WITH CREATEDB' WHERE NOT EXISTS (SELECT FROM pg_catalog.pg_roles WHERE rolname='freecodecamp')
+[unknown] LOG:  connection received: host=127.0.0.1 port=42914
+freecodecamp LOG:  connection authorized: user=freecodecamp database=postgres application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT d.datname as "Name",
+	       pg_catalog.pg_get_userbyid(d.datdba) as "Owner",
+	       pg_catalog.pg_encoding_to_char(d.encoding) as "Encoding",
+	       d.datcollate as "Collate",
+	       d.datctype as "Ctype",
+	       pg_catalog.array_to_string(d.datacl, E'\n') AS "Access privileges"
+	FROM pg_catalog.pg_database d
+	ORDER BY 1;
+freecodecamp LOG:  statement: create database bikes
+	;
+[unknown] LOG:  connection received: host=127.0.0.1 port=57062
+postgres LOG:  connection authorized: user=postgres database=postgres
+postgres LOG:  statement: SELECT datname FROM pg_catalog.pg_database WHERE datname='bikes';
+freecodecamp LOG:  statement: create database bikes;
+freecodecamp ERROR:  database "bikes" already exists
+freecodecamp STATEMENT:  create database bikes;
+[unknown] LOG:  connection received: host=127.0.0.1 port=59092
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: create table bikes();
+[unknown] LOG:  connection received: host=127.0.0.1 port=45710
+postgres LOG:  connection authorized: user=postgres database=bikes
+postgres LOG:  statement: SELECT * FROM bikes;
+freecodecamp LOG:  statement: SELECT n.nspname as "Schema",
+	  c.relname as "Name",
+	  CASE c.relkind WHEN 'r' THEN 'table' WHEN 'v' THEN 'view' WHEN 'm' THEN 'materialized view' WHEN 'i' THEN 'index' WHEN 'S' THEN 'sequence' WHEN 's' THEN 'special' WHEN 'f' THEN 'foreign table' WHEN 'p' THEN 'partitioned table' WHEN 'I' THEN 'partitioned index' END as "Type",
+	  pg_catalog.pg_get_userbyid(c.relowner) as "Owner"
+	FROM pg_catalog.pg_class c
+	     LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace
+	WHERE c.relkind IN ('r','p','v','m','S','f','')
+	      AND n.nspname <> 'pg_catalog'
+	      AND n.nspname <> 'information_schema'
+	      AND n.nspname !~ '^pg_toast'
+	  AND pg_catalog.pg_table_is_visible(c.oid)
+	ORDER BY 1,2;
+freecodecamp LOG:  statement: alter table bikes add column bike_id serial primary key;
+[unknown] LOG:  connection received: host=127.0.0.1 port=51562
+postgres LOG:  connection authorized: user=postgres database=bikes
+postgres LOG:  statement: SELECT c.table_name, c.column_name FROM information_schema.key_column_usage AS c LEFT JOIN information_schema.table_constraints AS t ON t.constraint_name = c.constraint_name WHERE t.constraint_type = 'PRIMARY KEY' AND t.table_name = 'bikes' AND c.column_name = 'bike_id';
+postgres LOG:  statement: SELECT column_default FROM INFORMATION_SCHEMA.COLUMNS WHERE table_schema = 'public' AND table_name = 'bikes' AND column_name = 'bike_id';
+freecodecamp LOG:  statement: SELECT c.oid,
+	  n.nspname,
+	  c.relname
+	FROM pg_catalog.pg_class c
+	     LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace
+	WHERE c.relname OPERATOR(pg_catalog.~) '^(bikes)$' COLLATE pg_catalog.default
+	  AND pg_catalog.pg_table_is_visible(c.oid)
+	ORDER BY 2, 3;
+freecodecamp LOG:  statement: SELECT c.relchecks, c.relkind, c.relhasindex, c.relhasrules, c.relhastriggers, c.relrowsecurity, c.relforcerowsecurity, false AS relhasoids, c.relispartition, '', c.reltablespace, CASE WHEN c.reloftype = 0 THEN '' ELSE c.reloftype::pg_catalog.regtype::pg_catalog.text END, c.relpersistence, c.relreplident, am.amname
+	FROM pg_catalog.pg_class c
+	 LEFT JOIN pg_catalog.pg_class tc ON (c.reltoastrelid = tc.oid)
+	LEFT JOIN pg_catalog.pg_am am ON (c.relam = am.oid)
+	WHERE c.oid = '16386';
+freecodecamp LOG:  statement: SELECT a.attname,
+	  pg_catalog.format_type(a.atttypid, a.atttypmod),
+	  (SELECT pg_catalog.pg_get_expr(d.adbin, d.adrelid, true)
+	   FROM pg_catalog.pg_attrdef d
+	   WHERE d.adrelid = a.attrelid AND d.adnum = a.attnum AND a.atthasdef),
+	  a.attnotnull,
+	  (SELECT c.collname FROM pg_catalog.pg_collation c, pg_catalog.pg_type t
+	   WHERE c.oid = a.attcollation AND t.oid = a.atttypid AND a.attcollation <> t.typcollation) AS attcollation,
+	  a.attidentity,
+	  a.attgenerated
+	FROM pg_catalog.pg_attribute a
+	WHERE a.attrelid = '16386' AND a.attnum > 0 AND NOT a.attisdropped
+	ORDER BY a.attnum;
+freecodecamp LOG:  statement: SELECT c2.relname, i.indisprimary, i.indisunique, i.indisclustered, i.indisvalid, pg_catalog.pg_get_indexdef(i.indexrelid, 0, true),
+	  pg_catalog.pg_get_constraintdef(con.oid, true), contype, condeferrable, condeferred, i.indisreplident, c2.reltablespace
+	FROM pg_catalog.pg_class c, pg_catalog.pg_class c2, pg_catalog.pg_index i
+	  LEFT JOIN pg_catalog.pg_constraint con ON (conrelid = i.indrelid AND conindid = i.indexrelid AND contype IN ('p','u','x'))
+	WHERE c.oid = '16386' AND c.oid = i.indrelid AND i.indexrelid = c2.oid
+	ORDER BY i.indisprimary DESC, i.indisunique DESC, c2.relname;
+freecodecamp LOG:  statement: SELECT pol.polname, pol.polpermissive,
+	  CASE WHEN pol.polroles = '{0}' THEN NULL ELSE pg_catalog.array_to_string(array(select rolname from pg_catalog.pg_roles where oid = any (pol.polroles) order by 1),',') END,
+	  pg_catalog.pg_get_expr(pol.polqual, pol.polrelid),
+	  pg_catalog.pg_get_expr(pol.polwithcheck, pol.polrelid),
+	  CASE pol.polcmd
+	    WHEN 'r' THEN 'SELECT'
+	    WHEN 'a' THEN 'INSERT'
+	    WHEN 'w' THEN 'UPDATE'
+	    WHEN 'd' THEN 'DELETE'
+	    END AS cmd
+	FROM pg_catalog.pg_policy pol
+	WHERE pol.polrelid = '16386' ORDER BY 1;
+freecodecamp LOG:  statement: SELECT oid, stxrelid::pg_catalog.regclass, stxnamespace::pg_catalog.regnamespace AS nsp, stxname,
+	  (SELECT pg_catalog.string_agg(pg_catalog.quote_ident(attname),', ')
+	   FROM pg_catalog.unnest(stxkeys) s(attnum)
+	   JOIN pg_catalog.pg_attribute a ON (stxrelid = a.attrelid AND
+	        a.attnum = s.attnum AND NOT attisdropped)) AS columns,
+	  'd' = any(stxkind) AS ndist_enabled,
+	  'f' = any(stxkind) AS deps_enabled,
+	  'm' = any(stxkind) AS mcv_enabled
+	FROM pg_catalog.pg_statistic_ext stat WHERE stxrelid = '16386'
+	ORDER BY 1;
+freecodecamp LOG:  statement: SELECT pubname
+	FROM pg_catalog.pg_publication p
+	JOIN pg_catalog.pg_publication_rel pr ON p.oid = pr.prpubid
+	WHERE pr.prrelid = '16386'
+	UNION ALL
+	SELECT pubname
+	FROM pg_catalog.pg_publication p
+	WHERE p.puballtables AND pg_catalog.pg_relation_is_publishable('16386')
+	ORDER BY 1;
+freecodecamp LOG:  statement: SELECT c.oid::pg_catalog.regclass FROM pg_catalog.pg_class c, pg_catalog.pg_inherits i WHERE c.oid=i.inhparent AND i.inhrelid = '16386' AND c.relkind != 'p' ORDER BY inhseqno;
+freecodecamp LOG:  statement: SELECT c.oid::pg_catalog.regclass,       pg_catalog.pg_get_expr(c.relpartbound, c.oid),       c.relkind FROM pg_catalog.pg_class c, pg_catalog.pg_inherits i WHERE c.oid=i.inhrelid AND i.inhparent = '16386' ORDER BY pg_catalog.pg_get_expr(c.relpartbound, c.oid) = 'DEFAULT',          c.oid::pg_catalog.regclass::pg_catalog.text;
+freecodecamp LOG:  statement: alter table bikes add column type varchar(50) not null;
+[unknown] LOG:  connection received: host=127.0.0.1 port=34800
+postgres LOG:  connection authorized: user=postgres database=bikes
+postgres LOG:  statement: SELECT column_name FROM INFORMATION_SCHEMA.COLUMNS WHERE table_schema = 'public' AND is_nullable = 'NO' AND table_name = 'bikes' AND column_name = 'type' AND data_type = 'character varying' AND character_maximum_length = 50;
+freecodecamp LOG:  statement: SELECT c.oid,
+	  n.nspname,
+	  c.relname
+	FROM pg_catalog.pg_class c
+	     LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace
+	WHERE c.relname OPERATOR(pg_catalog.~) '^(bikes)$' COLLATE pg_catalog.default
+	  AND pg_catalog.pg_table_is_visible(c.oid)
+	ORDER BY 2, 3;
+freecodecamp LOG:  statement: SELECT c.relchecks, c.relkind, c.relhasindex, c.relhasrules, c.relhastriggers, c.relrowsecurity, c.relforcerowsecurity, false AS relhasoids, c.relispartition, '', c.reltablespace, CASE WHEN c.reloftype = 0 THEN '' ELSE c.reloftype::pg_catalog.regtype::pg_catalog.text END, c.relpersistence, c.relreplident, am.amname
+	FROM pg_catalog.pg_class c
+	 LEFT JOIN pg_catalog.pg_class tc ON (c.reltoastrelid = tc.oid)
+	LEFT JOIN pg_catalog.pg_am am ON (c.relam = am.oid)
+	WHERE c.oid = '16386';
+freecodecamp LOG:  statement: SELECT a.attname,
+	  pg_catalog.format_type(a.atttypid, a.atttypmod),
+	  (SELECT pg_catalog.pg_get_expr(d.adbin, d.adrelid, true)
+	   FROM pg_catalog.pg_attrdef d
+	   WHERE d.adrelid = a.attrelid AND d.adnum = a.attnum AND a.atthasdef),
+	  a.attnotnull,
+	  (SELECT c.collname FROM pg_catalog.pg_collation c, pg_catalog.pg_type t
+	   WHERE c.oid = a.attcollation AND t.oid = a.atttypid AND a.attcollation <> t.typcollation) AS attcollation,
+	  a.attidentity,
+	  a.attgenerated
+	FROM pg_catalog.pg_attribute a
+	WHERE a.attrelid = '16386' AND a.attnum > 0 AND NOT a.attisdropped
+	ORDER BY a.attnum;
+freecodecamp LOG:  statement: SELECT c2.relname, i.indisprimary, i.indisunique, i.indisclustered, i.indisvalid, pg_catalog.pg_get_indexdef(i.indexrelid, 0, true),
+	  pg_catalog.pg_get_constraintdef(con.oid, true), contype, condeferrable, condeferred, i.indisreplident, c2.reltablespace
+	FROM pg_catalog.pg_class c, pg_catalog.pg_class c2, pg_catalog.pg_index i
+	  LEFT JOIN pg_catalog.pg_constraint con ON (conrelid = i.indrelid AND conindid = i.indexrelid AND contype IN ('p','u','x'))
+	WHERE c.oid = '16386' AND c.oid = i.indrelid AND i.indexrelid = c2.oid
+	ORDER BY i.indisprimary DESC, i.indisunique DESC, c2.relname;
+freecodecamp LOG:  statement: SELECT pol.polname, pol.polpermissive,
+	  CASE WHEN pol.polroles = '{0}' THEN NULL ELSE pg_catalog.array_to_string(array(select rolname from pg_catalog.pg_roles where oid = any (pol.polroles) order by 1),',') END,
+	  pg_catalog.pg_get_expr(pol.polqual, pol.polrelid),
+	  pg_catalog.pg_get_expr(pol.polwithcheck, pol.polrelid),
+	  CASE pol.polcmd
+	    WHEN 'r' THEN 'SELECT'
+	    WHEN 'a' THEN 'INSERT'
+	    WHEN 'w' THEN 'UPDATE'
+	    WHEN 'd' THEN 'DELETE'
+	    END AS cmd
+	FROM pg_catalog.pg_policy pol
+	WHERE pol.polrelid = '16386' ORDER BY 1;
+freecodecamp LOG:  statement: SELECT oid, stxrelid::pg_catalog.regclass, stxnamespace::pg_catalog.regnamespace AS nsp, stxname,
+	  (SELECT pg_catalog.string_agg(pg_catalog.quote_ident(attname),', ')
+	   FROM pg_catalog.unnest(stxkeys) s(attnum)
+	   JOIN pg_catalog.pg_attribute a ON (stxrelid = a.attrelid AND
+	        a.attnum = s.attnum AND NOT attisdropped)) AS columns,
+	  'd' = any(stxkind) AS ndist_enabled,
+	  'f' = any(stxkind) AS deps_enabled,
+	  'm' = any(stxkind) AS mcv_enabled
+	FROM pg_catalog.pg_statistic_ext stat WHERE stxrelid = '16386'
+	ORDER BY 1;
+freecodecamp LOG:  statement: SELECT pubname
+	FROM pg_catalog.pg_publication p
+	JOIN pg_catalog.pg_publication_rel pr ON p.oid = pr.prpubid
+	WHERE pr.prrelid = '16386'
+	UNION ALL
+	SELECT pubname
+	FROM pg_catalog.pg_publication p
+	WHERE p.puballtables AND pg_catalog.pg_relation_is_publishable('16386')
+	ORDER BY 1;
+freecodecamp LOG:  statement: SELECT c.oid::pg_catalog.regclass FROM pg_catalog.pg_class c, pg_catalog.pg_inherits i WHERE c.oid=i.inhparent AND i.inhrelid = '16386' AND c.relkind != 'p' ORDER BY inhseqno;
+freecodecamp LOG:  statement: SELECT c.oid::pg_catalog.regclass,       pg_catalog.pg_get_expr(c.relpartbound, c.oid),       c.relkind FROM pg_catalog.pg_class c, pg_catalog.pg_inherits i WHERE c.oid=i.inhrelid AND i.inhparent = '16386' ORDER BY pg_catalog.pg_get_expr(c.relpartbound, c.oid) = 'DEFAULT',          c.oid::pg_catalog.regclass::pg_catalog.text;
+freecodecamp ERROR:  syntax error at or near "ize" at character 17
+freecodecamp STATEMENT:  alter table add ize int not null
+	;
+freecodecamp LOG:  statement: alter table bikes add column size int not null;
+[unknown] LOG:  connection received: host=127.0.0.1 port=45498
+postgres LOG:  connection authorized: user=postgres database=bikes
+postgres LOG:  statement: SELECT column_name FROM INFORMATION_SCHEMA.COLUMNS WHERE table_schema = 'public' AND is_nullable = 'NO' AND table_name = 'bikes' AND column_name = 'size' AND data_type = 'integer'
+freecodecamp LOG:  statement: alter table bikes add column available boolean not null default true;
+[unknown] LOG:  connection received: host=127.0.0.1 port=36018
+postgres LOG:  connection authorized: user=postgres database=bikes
+postgres LOG:  statement: SELECT column_name FROM INFORMATION_SCHEMA.COLUMNS WHERE table_schema = 'public' AND is_nullable = 'NO' AND table_name = 'bikes' AND column_name = 'available' AND data_type = 'boolean' AND column_default = 'true';
+freecodecamp LOG:  statement: SELECT c.oid,
+	  n.nspname,
+	  c.relname
+	FROM pg_catalog.pg_class c
+	     LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace
+	WHERE c.relname OPERATOR(pg_catalog.~) '^(bikes)$' COLLATE pg_catalog.default
+	  AND pg_catalog.pg_table_is_visible(c.oid)
+	ORDER BY 2, 3;
+freecodecamp LOG:  statement: SELECT c.relchecks, c.relkind, c.relhasindex, c.relhasrules, c.relhastriggers, c.relrowsecurity, c.relforcerowsecurity, false AS relhasoids, c.relispartition, '', c.reltablespace, CASE WHEN c.reloftype = 0 THEN '' ELSE c.reloftype::pg_catalog.regtype::pg_catalog.text END, c.relpersistence, c.relreplident, am.amname
+	FROM pg_catalog.pg_class c
+	 LEFT JOIN pg_catalog.pg_class tc ON (c.reltoastrelid = tc.oid)
+	LEFT JOIN pg_catalog.pg_am am ON (c.relam = am.oid)
+	WHERE c.oid = '16386';
+freecodecamp LOG:  statement: SELECT a.attname,
+	  pg_catalog.format_type(a.atttypid, a.atttypmod),
+	  (SELECT pg_catalog.pg_get_expr(d.adbin, d.adrelid, true)
+	   FROM pg_catalog.pg_attrdef d
+	   WHERE d.adrelid = a.attrelid AND d.adnum = a.attnum AND a.atthasdef),
+	  a.attnotnull,
+	  (SELECT c.collname FROM pg_catalog.pg_collation c, pg_catalog.pg_type t
+	   WHERE c.oid = a.attcollation AND t.oid = a.atttypid AND a.attcollation <> t.typcollation) AS attcollation,
+	  a.attidentity,
+	  a.attgenerated
+	FROM pg_catalog.pg_attribute a
+	WHERE a.attrelid = '16386' AND a.attnum > 0 AND NOT a.attisdropped
+	ORDER BY a.attnum;
+freecodecamp LOG:  statement: SELECT c2.relname, i.indisprimary, i.indisunique, i.indisclustered, i.indisvalid, pg_catalog.pg_get_indexdef(i.indexrelid, 0, true),
+	  pg_catalog.pg_get_constraintdef(con.oid, true), contype, condeferrable, condeferred, i.indisreplident, c2.reltablespace
+	FROM pg_catalog.pg_class c, pg_catalog.pg_class c2, pg_catalog.pg_index i
+	  LEFT JOIN pg_catalog.pg_constraint con ON (conrelid = i.indrelid AND conindid = i.indexrelid AND contype IN ('p','u','x'))
+	WHERE c.oid = '16386' AND c.oid = i.indrelid AND i.indexrelid = c2.oid
+	ORDER BY i.indisprimary DESC, i.indisunique DESC, c2.relname;
+freecodecamp LOG:  statement: SELECT pol.polname, pol.polpermissive,
+	  CASE WHEN pol.polroles = '{0}' THEN NULL ELSE pg_catalog.array_to_string(array(select rolname from pg_catalog.pg_roles where oid = any (pol.polroles) order by 1),',') END,
+	  pg_catalog.pg_get_expr(pol.polqual, pol.polrelid),
+	  pg_catalog.pg_get_expr(pol.polwithcheck, pol.polrelid),
+	  CASE pol.polcmd
+	    WHEN 'r' THEN 'SELECT'
+	    WHEN 'a' THEN 'INSERT'
+	    WHEN 'w' THEN 'UPDATE'
+	    WHEN 'd' THEN 'DELETE'
+	    END AS cmd
+	FROM pg_catalog.pg_policy pol
+	WHERE pol.polrelid = '16386' ORDER BY 1;
+freecodecamp LOG:  statement: SELECT oid, stxrelid::pg_catalog.regclass, stxnamespace::pg_catalog.regnamespace AS nsp, stxname,
+	  (SELECT pg_catalog.string_agg(pg_catalog.quote_ident(attname),', ')
+	   FROM pg_catalog.unnest(stxkeys) s(attnum)
+	   JOIN pg_catalog.pg_attribute a ON (stxrelid = a.attrelid AND
+	        a.attnum = s.attnum AND NOT attisdropped)) AS columns,
+	  'd' = any(stxkind) AS ndist_enabled,
+	  'f' = any(stxkind) AS deps_enabled,
+	  'm' = any(stxkind) AS mcv_enabled
+	FROM pg_catalog.pg_statistic_ext stat WHERE stxrelid = '16386'
+	ORDER BY 1;
+freecodecamp LOG:  statement: SELECT pubname
+	FROM pg_catalog.pg_publication p
+	JOIN pg_catalog.pg_publication_rel pr ON p.oid = pr.prpubid
+	WHERE pr.prrelid = '16386'
+	UNION ALL
+	SELECT pubname
+	FROM pg_catalog.pg_publication p
+	WHERE p.puballtables AND pg_catalog.pg_relation_is_publishable('16386')
+	ORDER BY 1;
+freecodecamp LOG:  statement: SELECT c.oid::pg_catalog.regclass FROM pg_catalog.pg_class c, pg_catalog.pg_inherits i WHERE c.oid=i.inhparent AND i.inhrelid = '16386' AND c.relkind != 'p' ORDER BY inhseqno;
+freecodecamp LOG:  statement: SELECT c.oid::pg_catalog.regclass,       pg_catalog.pg_get_expr(c.relpartbound, c.oid),       c.relkind FROM pg_catalog.pg_class c, pg_catalog.pg_inherits i WHERE c.oid=i.inhrelid AND i.inhparent = '16386' ORDER BY pg_catalog.pg_get_expr(c.relpartbound, c.oid) = 'DEFAULT',          c.oid::pg_catalog.regclass::pg_catalog.text;
+freecodecamp ERROR:  syntax error at or near ";" at character 23
+freecodecamp STATEMENT:  create table customers;
+freecodecamp LOG:  statement: create table customers();
+[unknown] LOG:  connection received: host=127.0.0.1 port=50374
+postgres LOG:  connection authorized: user=postgres database=bikes
+postgres LOG:  statement: SELECT * FROM customers;
+freecodecamp LOG:  statement: alter table customers add column customer_id serial primary key
+	;
+[unknown] LOG:  connection received: host=127.0.0.1 port=47322
+postgres LOG:  connection authorized: user=postgres database=bikes
+postgres LOG:  statement: SELECT c.table_name, c.column_name FROM information_schema.key_column_usage AS c LEFT JOIN information_schema.table_constraints AS t ON t.constraint_name = c.constraint_name WHERE t.constraint_type = 'PRIMARY KEY' AND t.table_name = 'customers' AND c.column_name = 'customer_id';
+postgres LOG:  statement: SELECT column_default FROM INFORMATION_SCHEMA.COLUMNS WHERE table_schema = 'public' AND table_name = 'customers' AND column_name = 'customer_id';
+freecodecamp LOG:  statement: SELECT c.oid,
+	  n.nspname,
+	  c.relname
+	FROM pg_catalog.pg_class c
+	     LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace
+	WHERE c.relname OPERATOR(pg_catalog.~) '^(customers)$' COLLATE pg_catalog.default
+	  AND pg_catalog.pg_table_is_visible(c.oid)
+	ORDER BY 2, 3;
+freecodecamp LOG:  statement: SELECT c.relchecks, c.relkind, c.relhasindex, c.relhasrules, c.relhastriggers, c.relrowsecurity, c.relforcerowsecurity, false AS relhasoids, c.relispartition, '', c.reltablespace, CASE WHEN c.reloftype = 0 THEN '' ELSE c.reloftype::pg_catalog.regtype::pg_catalog.text END, c.relpersistence, c.relreplident, am.amname
+	FROM pg_catalog.pg_class c
+	 LEFT JOIN pg_catalog.pg_class tc ON (c.reltoastrelid = tc.oid)
+	LEFT JOIN pg_catalog.pg_am am ON (c.relam = am.oid)
+	WHERE c.oid = '16399';
+freecodecamp LOG:  statement: SELECT a.attname,
+	  pg_catalog.format_type(a.atttypid, a.atttypmod),
+	  (SELECT pg_catalog.pg_get_expr(d.adbin, d.adrelid, true)
+	   FROM pg_catalog.pg_attrdef d
+	   WHERE d.adrelid = a.attrelid AND d.adnum = a.attnum AND a.atthasdef),
+	  a.attnotnull,
+	  (SELECT c.collname FROM pg_catalog.pg_collation c, pg_catalog.pg_type t
+	   WHERE c.oid = a.attcollation AND t.oid = a.atttypid AND a.attcollation <> t.typcollation) AS attcollation,
+	  a.attidentity,
+	  a.attgenerated
+	FROM pg_catalog.pg_attribute a
+	WHERE a.attrelid = '16399' AND a.attnum > 0 AND NOT a.attisdropped
+	ORDER BY a.attnum;
+freecodecamp LOG:  statement: SELECT c2.relname, i.indisprimary, i.indisunique, i.indisclustered, i.indisvalid, pg_catalog.pg_get_indexdef(i.indexrelid, 0, true),
+	  pg_catalog.pg_get_constraintdef(con.oid, true), contype, condeferrable, condeferred, i.indisreplident, c2.reltablespace
+	FROM pg_catalog.pg_class c, pg_catalog.pg_class c2, pg_catalog.pg_index i
+	  LEFT JOIN pg_catalog.pg_constraint con ON (conrelid = i.indrelid AND conindid = i.indexrelid AND contype IN ('p','u','x'))
+	WHERE c.oid = '16399' AND c.oid = i.indrelid AND i.indexrelid = c2.oid
+	ORDER BY i.indisprimary DESC, i.indisunique DESC, c2.relname;
+freecodecamp LOG:  statement: SELECT pol.polname, pol.polpermissive,
+	  CASE WHEN pol.polroles = '{0}' THEN NULL ELSE pg_catalog.array_to_string(array(select rolname from pg_catalog.pg_roles where oid = any (pol.polroles) order by 1),',') END,
+	  pg_catalog.pg_get_expr(pol.polqual, pol.polrelid),
+	  pg_catalog.pg_get_expr(pol.polwithcheck, pol.polrelid),
+	  CASE pol.polcmd
+	    WHEN 'r' THEN 'SELECT'
+	    WHEN 'a' THEN 'INSERT'
+	    WHEN 'w' THEN 'UPDATE'
+	    WHEN 'd' THEN 'DELETE'
+	    END AS cmd
+	FROM pg_catalog.pg_policy pol
+	WHERE pol.polrelid = '16399' ORDER BY 1;
+freecodecamp LOG:  statement: SELECT oid, stxrelid::pg_catalog.regclass, stxnamespace::pg_catalog.regnamespace AS nsp, stxname,
+	  (SELECT pg_catalog.string_agg(pg_catalog.quote_ident(attname),', ')
+	   FROM pg_catalog.unnest(stxkeys) s(attnum)
+	   JOIN pg_catalog.pg_attribute a ON (stxrelid = a.attrelid AND
+	        a.attnum = s.attnum AND NOT attisdropped)) AS columns,
+	  'd' = any(stxkind) AS ndist_enabled,
+	  'f' = any(stxkind) AS deps_enabled,
+	  'm' = any(stxkind) AS mcv_enabled
+	FROM pg_catalog.pg_statistic_ext stat WHERE stxrelid = '16399'
+	ORDER BY 1;
+freecodecamp LOG:  statement: SELECT pubname
+	FROM pg_catalog.pg_publication p
+	JOIN pg_catalog.pg_publication_rel pr ON p.oid = pr.prpubid
+	WHERE pr.prrelid = '16399'
+	UNION ALL
+	SELECT pubname
+	FROM pg_catalog.pg_publication p
+	WHERE p.puballtables AND pg_catalog.pg_relation_is_publishable('16399')
+	ORDER BY 1;
+freecodecamp LOG:  statement: SELECT c.oid::pg_catalog.regclass FROM pg_catalog.pg_class c, pg_catalog.pg_inherits i WHERE c.oid=i.inhparent AND i.inhrelid = '16399' AND c.relkind != 'p' ORDER BY inhseqno;
+freecodecamp LOG:  statement: SELECT c.oid::pg_catalog.regclass,       pg_catalog.pg_get_expr(c.relpartbound, c.oid),       c.relkind FROM pg_catalog.pg_class c, pg_catalog.pg_inherits i WHERE c.oid=i.inhrelid AND i.inhparent = '16399' ORDER BY pg_catalog.pg_get_expr(c.relpartbound, c.oid) = 'DEFAULT',          c.oid::pg_catalog.regclass::pg_catalog.text;
+freecodecamp LOG:  statement: ALTER TABLE customers ADD COLUMN phone VARCHAR(15) NOT NULL UNIQUE;
+[unknown] LOG:  connection received: host=127.0.0.1 port=33748
+postgres LOG:  connection authorized: user=postgres database=bikes
+postgres LOG:  statement: SELECT column_name FROM INFORMATION_SCHEMA.COLUMNS WHERE table_schema = 'public' AND is_nullable = 'NO' AND table_name = 'customers' AND column_name = 'phone' AND data_type = 'character varying' AND character_maximum_length = 15;
+postgres LOG:  statement: SELECT tc.table_schema, tc.constraint_name, tc.table_name, kcu.column_name, ccu.table_name AS foreign_table_name, ccu.column_name AS foreign_column_name FROM information_schema.table_constraints tc JOIN information_schema.key_column_usage kcu ON tc.constraint_name = kcu.constraint_name JOIN information_schema.constraint_column_usage ccu ON ccu.constraint_name = tc.constraint_name WHERE constraint_type = 'UNIQUE';
+freecodecamp LOG:  statement: ALTER TABLE customers ADD COLUMN name VARCHAR(40) NOT NULL;
+[unknown] LOG:  connection received: host=127.0.0.1 port=53520
+postgres LOG:  connection authorized: user=postgres database=bikes
+postgres LOG:  statement: SELECT column_name FROM INFORMATION_SCHEMA.COLUMNS WHERE table_schema = 'public' AND is_nullable = 'NO' AND table_name = 'customers' AND column_name = 'name' AND data_type = 'character varying' AND character_maximum_length = 40;
+freecodecamp LOG:  statement: SELECT c.oid,
+	  n.nspname,
+	  c.relname
+	FROM pg_catalog.pg_class c
+	     LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace
+	WHERE c.relname OPERATOR(pg_catalog.~) '^(customers)$' COLLATE pg_catalog.default
+	  AND pg_catalog.pg_table_is_visible(c.oid)
+	ORDER BY 2, 3;
+freecodecamp LOG:  statement: SELECT c.relchecks, c.relkind, c.relhasindex, c.relhasrules, c.relhastriggers, c.relrowsecurity, c.relforcerowsecurity, false AS relhasoids, c.relispartition, '', c.reltablespace, CASE WHEN c.reloftype = 0 THEN '' ELSE c.reloftype::pg_catalog.regtype::pg_catalog.text END, c.relpersistence, c.relreplident, am.amname
+	FROM pg_catalog.pg_class c
+	 LEFT JOIN pg_catalog.pg_class tc ON (c.reltoastrelid = tc.oid)
+	LEFT JOIN pg_catalog.pg_am am ON (c.relam = am.oid)
+	WHERE c.oid = '16399';
+freecodecamp LOG:  statement: SELECT a.attname,
+	  pg_catalog.format_type(a.atttypid, a.atttypmod),
+	  (SELECT pg_catalog.pg_get_expr(d.adbin, d.adrelid, true)
+	   FROM pg_catalog.pg_attrdef d
+	   WHERE d.adrelid = a.attrelid AND d.adnum = a.attnum AND a.atthasdef),
+	  a.attnotnull,
+	  (SELECT c.collname FROM pg_catalog.pg_collation c, pg_catalog.pg_type t
+	   WHERE c.oid = a.attcollation AND t.oid = a.atttypid AND a.attcollation <> t.typcollation) AS attcollation,
+	  a.attidentity,
+	  a.attgenerated
+	FROM pg_catalog.pg_attribute a
+	WHERE a.attrelid = '16399' AND a.attnum > 0 AND NOT a.attisdropped
+	ORDER BY a.attnum;
+freecodecamp LOG:  statement: SELECT c2.relname, i.indisprimary, i.indisunique, i.indisclustered, i.indisvalid, pg_catalog.pg_get_indexdef(i.indexrelid, 0, true),
+	  pg_catalog.pg_get_constraintdef(con.oid, true), contype, condeferrable, condeferred, i.indisreplident, c2.reltablespace
+	FROM pg_catalog.pg_class c, pg_catalog.pg_class c2, pg_catalog.pg_index i
+	  LEFT JOIN pg_catalog.pg_constraint con ON (conrelid = i.indrelid AND conindid = i.indexrelid AND contype IN ('p','u','x'))
+	WHERE c.oid = '16399' AND c.oid = i.indrelid AND i.indexrelid = c2.oid
+	ORDER BY i.indisprimary DESC, i.indisunique DESC, c2.relname;
+freecodecamp LOG:  statement: SELECT pol.polname, pol.polpermissive,
+	  CASE WHEN pol.polroles = '{0}' THEN NULL ELSE pg_catalog.array_to_string(array(select rolname from pg_catalog.pg_roles where oid = any (pol.polroles) order by 1),',') END,
+	  pg_catalog.pg_get_expr(pol.polqual, pol.polrelid),
+	  pg_catalog.pg_get_expr(pol.polwithcheck, pol.polrelid),
+	  CASE pol.polcmd
+	    WHEN 'r' THEN 'SELECT'
+	    WHEN 'a' THEN 'INSERT'
+	    WHEN 'w' THEN 'UPDATE'
+	    WHEN 'd' THEN 'DELETE'
+	    END AS cmd
+	FROM pg_catalog.pg_policy pol
+	WHERE pol.polrelid = '16399' ORDER BY 1;
+freecodecamp LOG:  statement: SELECT oid, stxrelid::pg_catalog.regclass, stxnamespace::pg_catalog.regnamespace AS nsp, stxname,
+	  (SELECT pg_catalog.string_agg(pg_catalog.quote_ident(attname),', ')
+	   FROM pg_catalog.unnest(stxkeys) s(attnum)
+	   JOIN pg_catalog.pg_attribute a ON (stxrelid = a.attrelid AND
+	        a.attnum = s.attnum AND NOT attisdropped)) AS columns,
+	  'd' = any(stxkind) AS ndist_enabled,
+	  'f' = any(stxkind) AS deps_enabled,
+	  'm' = any(stxkind) AS mcv_enabled
+	FROM pg_catalog.pg_statistic_ext stat WHERE stxrelid = '16399'
+	ORDER BY 1;
+freecodecamp LOG:  statement: SELECT pubname
+	FROM pg_catalog.pg_publication p
+	JOIN pg_catalog.pg_publication_rel pr ON p.oid = pr.prpubid
+	WHERE pr.prrelid = '16399'
+	UNION ALL
+	SELECT pubname
+	FROM pg_catalog.pg_publication p
+	WHERE p.puballtables AND pg_catalog.pg_relation_is_publishable('16399')
+	ORDER BY 1;
+freecodecamp LOG:  statement: SELECT c.oid::pg_catalog.regclass FROM pg_catalog.pg_class c, pg_catalog.pg_inherits i WHERE c.oid=i.inhparent AND i.inhrelid = '16399' AND c.relkind != 'p' ORDER BY inhseqno;
+freecodecamp LOG:  statement: SELECT c.oid::pg_catalog.regclass,       pg_catalog.pg_get_expr(c.relpartbound, c.oid),       c.relkind FROM pg_catalog.pg_class c, pg_catalog.pg_inherits i WHERE c.oid=i.inhrelid AND i.inhparent = '16399' ORDER BY pg_catalog.pg_get_expr(c.relpartbound, c.oid) = 'DEFAULT',          c.oid::pg_catalog.regclass::pg_catalog.text;
+freecodecamp LOG:  statement: create table rentals
+	();
+[unknown] LOG:  connection received: host=127.0.0.1 port=46054
+postgres LOG:  connection authorized: user=postgres database=bikes
+postgres LOG:  statement: SELECT * FROM rentals;
+freecodecamp LOG:  statement: ALTER TABLE rentals ADD COLUMN rental_id SERIAL PRIMARY KEY;
+[unknown] LOG:  connection received: host=127.0.0.1 port=35838
+postgres LOG:  connection authorized: user=postgres database=bikes
+postgres LOG:  statement: SELECT c.table_name, c.column_name FROM information_schema.key_column_usage AS c LEFT JOIN information_schema.table_constraints AS t ON t.constraint_name = c.constraint_name WHERE t.constraint_type = 'PRIMARY KEY' AND t.table_name = 'rentals' AND c.column_name = 'rental_id';
+postgres LOG:  statement: SELECT column_default FROM INFORMATION_SCHEMA.COLUMNS WHERE table_schema = 'public' AND table_name = 'rentals' AND column_name = 'rental_id';
+freecodecamp LOG:  statement: SELECT c.oid,
+	  n.nspname,
+	  c.relname
+	FROM pg_catalog.pg_class c
+	     LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace
+	WHERE c.relname OPERATOR(pg_catalog.~) '^(rentals)$' COLLATE pg_catalog.default
+	  AND pg_catalog.pg_table_is_visible(c.oid)
+	ORDER BY 2, 3;
+freecodecamp LOG:  statement: SELECT c.relchecks, c.relkind, c.relhasindex, c.relhasrules, c.relhastriggers, c.relrowsecurity, c.relforcerowsecurity, false AS relhasoids, c.relispartition, '', c.reltablespace, CASE WHEN c.reloftype = 0 THEN '' ELSE c.reloftype::pg_catalog.regtype::pg_catalog.text END, c.relpersistence, c.relreplident, am.amname
+	FROM pg_catalog.pg_class c
+	 LEFT JOIN pg_catalog.pg_class tc ON (c.reltoastrelid = tc.oid)
+	LEFT JOIN pg_catalog.pg_am am ON (c.relam = am.oid)
+	WHERE c.oid = '16413';
+freecodecamp LOG:  statement: SELECT a.attname,
+	  pg_catalog.format_type(a.atttypid, a.atttypmod),
+	  (SELECT pg_catalog.pg_get_expr(d.adbin, d.adrelid, true)
+	   FROM pg_catalog.pg_attrdef d
+	   WHERE d.adrelid = a.attrelid AND d.adnum = a.attnum AND a.atthasdef),
+	  a.attnotnull,
+	  (SELECT c.collname FROM pg_catalog.pg_collation c, pg_catalog.pg_type t
+	   WHERE c.oid = a.attcollation AND t.oid = a.atttypid AND a.attcollation <> t.typcollation) AS attcollation,
+	  a.attidentity,
+	  a.attgenerated
+	FROM pg_catalog.pg_attribute a
+	WHERE a.attrelid = '16413' AND a.attnum > 0 AND NOT a.attisdropped
+	ORDER BY a.attnum;
+freecodecamp LOG:  statement: SELECT c2.relname, i.indisprimary, i.indisunique, i.indisclustered, i.indisvalid, pg_catalog.pg_get_indexdef(i.indexrelid, 0, true),
+	  pg_catalog.pg_get_constraintdef(con.oid, true), contype, condeferrable, condeferred, i.indisreplident, c2.reltablespace
+	FROM pg_catalog.pg_class c, pg_catalog.pg_class c2, pg_catalog.pg_index i
+	  LEFT JOIN pg_catalog.pg_constraint con ON (conrelid = i.indrelid AND conindid = i.indexrelid AND contype IN ('p','u','x'))
+	WHERE c.oid = '16413' AND c.oid = i.indrelid AND i.indexrelid = c2.oid
+	ORDER BY i.indisprimary DESC, i.indisunique DESC, c2.relname;
+freecodecamp LOG:  statement: SELECT pol.polname, pol.polpermissive,
+	  CASE WHEN pol.polroles = '{0}' THEN NULL ELSE pg_catalog.array_to_string(array(select rolname from pg_catalog.pg_roles where oid = any (pol.polroles) order by 1),',') END,
+	  pg_catalog.pg_get_expr(pol.polqual, pol.polrelid),
+	  pg_catalog.pg_get_expr(pol.polwithcheck, pol.polrelid),
+	  CASE pol.polcmd
+	    WHEN 'r' THEN 'SELECT'
+	    WHEN 'a' THEN 'INSERT'
+	    WHEN 'w' THEN 'UPDATE'
+	    WHEN 'd' THEN 'DELETE'
+	    END AS cmd
+	FROM pg_catalog.pg_policy pol
+	WHERE pol.polrelid = '16413' ORDER BY 1;
+freecodecamp LOG:  statement: SELECT oid, stxrelid::pg_catalog.regclass, stxnamespace::pg_catalog.regnamespace AS nsp, stxname,
+	  (SELECT pg_catalog.string_agg(pg_catalog.quote_ident(attname),', ')
+	   FROM pg_catalog.unnest(stxkeys) s(attnum)
+	   JOIN pg_catalog.pg_attribute a ON (stxrelid = a.attrelid AND
+	        a.attnum = s.attnum AND NOT attisdropped)) AS columns,
+	  'd' = any(stxkind) AS ndist_enabled,
+	  'f' = any(stxkind) AS deps_enabled,
+	  'm' = any(stxkind) AS mcv_enabled
+	FROM pg_catalog.pg_statistic_ext stat WHERE stxrelid = '16413'
+	ORDER BY 1;
+freecodecamp LOG:  statement: SELECT pubname
+	FROM pg_catalog.pg_publication p
+	JOIN pg_catalog.pg_publication_rel pr ON p.oid = pr.prpubid
+	WHERE pr.prrelid = '16413'
+	UNION ALL
+	SELECT pubname
+	FROM pg_catalog.pg_publication p
+	WHERE p.puballtables AND pg_catalog.pg_relation_is_publishable('16413')
+	ORDER BY 1;
+freecodecamp LOG:  statement: SELECT c.oid::pg_catalog.regclass FROM pg_catalog.pg_class c, pg_catalog.pg_inherits i WHERE c.oid=i.inhparent AND i.inhrelid = '16413' AND c.relkind != 'p' ORDER BY inhseqno;
+freecodecamp LOG:  statement: SELECT c.oid::pg_catalog.regclass,       pg_catalog.pg_get_expr(c.relpartbound, c.oid),       c.relkind FROM pg_catalog.pg_class c, pg_catalog.pg_inherits i WHERE c.oid=i.inhrelid AND i.inhparent = '16413' ORDER BY pg_catalog.pg_get_expr(c.relpartbound, c.oid) = 'DEFAULT',          c.oid::pg_catalog.regclass::pg_catalog.text;
+freecodecamp LOG:  statement: ALTER TABLE rentals ADD COLUMN customer_id INT NOT NULL;
+[unknown] LOG:  connection received: host=127.0.0.1 port=33402
+postgres LOG:  connection authorized: user=postgres database=bikes
+postgres LOG:  statement: SELECT column_name FROM INFORMATION_SCHEMA.COLUMNS WHERE table_schema = 'public' AND is_nullable = 'NO' AND table_name = 'rentals' AND column_name = 'customer_id' AND data_type = 'integer'
+freecodecamp LOG:  statement: ALTER TABLE rentals ADD FOREGIN KEY(customer_id) REFERENCES customers(customer_id);
+freecodecamp ERROR:  type "key" does not exist at character 33
+freecodecamp STATEMENT:  ALTER TABLE rentals ADD FOREGIN KEY(customer_id) REFERENCES customers(customer_id);
+freecodecamp LOG:  statement: ALTER TABLE rentals ADD FOREIGN KEY(customer_id) REFERENCES customers(customer_id);
+[unknown] LOG:  connection received: host=127.0.0.1 port=36182
+postgres LOG:  connection authorized: user=postgres database=bikes
+postgres LOG:  statement: SELECT tc.table_schema, tc.constraint_name, tc.table_name, kcu.column_name, ccu.table_name AS foreign_table_name, ccu.column_name AS foreign_column_name FROM information_schema.table_constraints tc JOIN information_schema.key_column_usage kcu ON tc.constraint_name = kcu.constraint_name JOIN information_schema.constraint_column_usage ccu ON ccu.constraint_name = tc.constraint_name WHERE constraint_type = 'FOREIGN KEY';
+freecodecamp LOG:  statement: SELECT c.oid,
+	  n.nspname,
+	  c.relname
+	FROM pg_catalog.pg_class c
+	     LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace
+	WHERE c.relname OPERATOR(pg_catalog.~) '^(rentals)$' COLLATE pg_catalog.default
+	  AND pg_catalog.pg_table_is_visible(c.oid)
+	ORDER BY 2, 3;
+freecodecamp LOG:  statement: SELECT c.relchecks, c.relkind, c.relhasindex, c.relhasrules, c.relhastriggers, c.relrowsecurity, c.relforcerowsecurity, false AS relhasoids, c.relispartition, '', c.reltablespace, CASE WHEN c.reloftype = 0 THEN '' ELSE c.reloftype::pg_catalog.regtype::pg_catalog.text END, c.relpersistence, c.relreplident, am.amname
+	FROM pg_catalog.pg_class c
+	 LEFT JOIN pg_catalog.pg_class tc ON (c.reltoastrelid = tc.oid)
+	LEFT JOIN pg_catalog.pg_am am ON (c.relam = am.oid)
+	WHERE c.oid = '16413';
+freecodecamp LOG:  statement: SELECT a.attname,
+	  pg_catalog.format_type(a.atttypid, a.atttypmod),
+	  (SELECT pg_catalog.pg_get_expr(d.adbin, d.adrelid, true)
+	   FROM pg_catalog.pg_attrdef d
+	   WHERE d.adrelid = a.attrelid AND d.adnum = a.attnum AND a.atthasdef),
+	  a.attnotnull,
+	  (SELECT c.collname FROM pg_catalog.pg_collation c, pg_catalog.pg_type t
+	   WHERE c.oid = a.attcollation AND t.oid = a.atttypid AND a.attcollation <> t.typcollation) AS attcollation,
+	  a.attidentity,
+	  a.attgenerated
+	FROM pg_catalog.pg_attribute a
+	WHERE a.attrelid = '16413' AND a.attnum > 0 AND NOT a.attisdropped
+	ORDER BY a.attnum;
+freecodecamp LOG:  statement: SELECT c2.relname, i.indisprimary, i.indisunique, i.indisclustered, i.indisvalid, pg_catalog.pg_get_indexdef(i.indexrelid, 0, true),
+	  pg_catalog.pg_get_constraintdef(con.oid, true), contype, condeferrable, condeferred, i.indisreplident, c2.reltablespace
+	FROM pg_catalog.pg_class c, pg_catalog.pg_class c2, pg_catalog.pg_index i
+	  LEFT JOIN pg_catalog.pg_constraint con ON (conrelid = i.indrelid AND conindid = i.indexrelid AND contype IN ('p','u','x'))
+	WHERE c.oid = '16413' AND c.oid = i.indrelid AND i.indexrelid = c2.oid
+	ORDER BY i.indisprimary DESC, i.indisunique DESC, c2.relname;
+freecodecamp LOG:  statement: SELECT true as sametable, conname,
+	  pg_catalog.pg_get_constraintdef(r.oid, true) as condef,
+	  conrelid::pg_catalog.regclass AS ontable
+	FROM pg_catalog.pg_constraint r
+	WHERE r.conrelid = '16413' AND r.contype = 'f'
+	     AND conparentid = 0
+	ORDER BY conname
+freecodecamp LOG:  statement: SELECT conname, conrelid::pg_catalog.regclass AS ontable,
+	       pg_catalog.pg_get_constraintdef(oid, true) AS condef
+	  FROM pg_catalog.pg_constraint c
+	 WHERE confrelid IN (SELECT pg_catalog.pg_partition_ancestors('16413')
+	                     UNION ALL VALUES ('16413'::pg_catalog.regclass))
+	       AND contype = 'f' AND conparentid = 0
+	ORDER BY conname;
+freecodecamp LOG:  statement: SELECT pol.polname, pol.polpermissive,
+	  CASE WHEN pol.polroles = '{0}' THEN NULL ELSE pg_catalog.array_to_string(array(select rolname from pg_catalog.pg_roles where oid = any (pol.polroles) order by 1),',') END,
+	  pg_catalog.pg_get_expr(pol.polqual, pol.polrelid),
+	  pg_catalog.pg_get_expr(pol.polwithcheck, pol.polrelid),
+	  CASE pol.polcmd
+	    WHEN 'r' THEN 'SELECT'
+	    WHEN 'a' THEN 'INSERT'
+	    WHEN 'w' THEN 'UPDATE'
+	    WHEN 'd' THEN 'DELETE'
+	    END AS cmd
+	FROM pg_catalog.pg_policy pol
+	WHERE pol.polrelid = '16413' ORDER BY 1;
+freecodecamp LOG:  statement: SELECT oid, stxrelid::pg_catalog.regclass, stxnamespace::pg_catalog.regnamespace AS nsp, stxname,
+	  (SELECT pg_catalog.string_agg(pg_catalog.quote_ident(attname),', ')
+	   FROM pg_catalog.unnest(stxkeys) s(attnum)
+	   JOIN pg_catalog.pg_attribute a ON (stxrelid = a.attrelid AND
+	        a.attnum = s.attnum AND NOT attisdropped)) AS columns,
+	  'd' = any(stxkind) AS ndist_enabled,
+	  'f' = any(stxkind) AS deps_enabled,
+	  'm' = any(stxkind) AS mcv_enabled
+	FROM pg_catalog.pg_statistic_ext stat WHERE stxrelid = '16413'
+	ORDER BY 1;
+freecodecamp LOG:  statement: SELECT pubname
+	FROM pg_catalog.pg_publication p
+	JOIN pg_catalog.pg_publication_rel pr ON p.oid = pr.prpubid
+	WHERE pr.prrelid = '16413'
+	UNION ALL
+	SELECT pubname
+	FROM pg_catalog.pg_publication p
+	WHERE p.puballtables AND pg_catalog.pg_relation_is_publishable('16413')
+	ORDER BY 1;
+freecodecamp LOG:  statement: SELECT t.tgname, pg_catalog.pg_get_triggerdef(t.oid, true), t.tgenabled, t.tgisinternal
+	FROM pg_catalog.pg_trigger t
+	WHERE t.tgrelid = '16413' AND (NOT t.tgisinternal OR (t.tgisinternal AND t.tgenabled = 'D') 
+	    OR EXISTS (SELECT 1 FROM pg_catalog.pg_depend WHERE objid = t.oid 
+	        AND refclassid = 'pg_catalog.pg_trigger'::pg_catalog.regclass))
+	ORDER BY 1;
+freecodecamp LOG:  statement: SELECT c.oid::pg_catalog.regclass FROM pg_catalog.pg_class c, pg_catalog.pg_inherits i WHERE c.oid=i.inhparent AND i.inhrelid = '16413' AND c.relkind != 'p' ORDER BY inhseqno;
+freecodecamp LOG:  statement: SELECT c.oid::pg_catalog.regclass,       pg_catalog.pg_get_expr(c.relpartbound, c.oid),       c.relkind FROM pg_catalog.pg_class c, pg_catalog.pg_inherits i WHERE c.oid=i.inhrelid AND i.inhparent = '16413' ORDER BY pg_catalog.pg_get_expr(c.relpartbound, c.oid) = 'DEFAULT',          c.oid::pg_catalog.regclass::pg_catalog.text;
+freecodecamp LOG:  statement: ALTER TABLE rentals ADD COLUMN bike_id INT NOT NULL;
+[unknown] LOG:  connection received: host=127.0.0.1 port=53972
+postgres LOG:  connection authorized: user=postgres database=bikes
+postgres LOG:  statement: SELECT column_name FROM INFORMATION_SCHEMA.COLUMNS WHERE table_schema = 'public' AND is_nullable = 'NO' AND table_name = 'rentals' AND column_name = 'bike_id' AND data_type = 'integer'
+freecodecamp LOG:  statement: ALTER TABLE rentals ADD FOREIGN KEY(bike_id) REFERENCES bikes(bike_id);
+[unknown] LOG:  connection received: host=127.0.0.1 port=36176
+postgres LOG:  connection authorized: user=postgres database=bikes
+postgres LOG:  statement: SELECT tc.table_schema, tc.constraint_name, tc.table_name, kcu.column_name, ccu.table_name AS foreign_table_name, ccu.column_name AS foreign_column_name FROM information_schema.table_constraints tc JOIN information_schema.key_column_usage kcu ON tc.constraint_name = kcu.constraint_name JOIN information_schema.constraint_column_usage ccu ON ccu.constraint_name = tc.constraint_name WHERE constraint_type = 'FOREIGN KEY';
+freecodecamp LOG:  statement: SELECT c.oid,
+	  n.nspname,
+	  c.relname
+	FROM pg_catalog.pg_class c
+	     LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace
+	WHERE c.relname OPERATOR(pg_catalog.~) '^(rentals)$' COLLATE pg_catalog.default
+	  AND pg_catalog.pg_table_is_visible(c.oid)
+	ORDER BY 2, 3;
+freecodecamp LOG:  statement: SELECT c.relchecks, c.relkind, c.relhasindex, c.relhasrules, c.relhastriggers, c.relrowsecurity, c.relforcerowsecurity, false AS relhasoids, c.relispartition, '', c.reltablespace, CASE WHEN c.reloftype = 0 THEN '' ELSE c.reloftype::pg_catalog.regtype::pg_catalog.text END, c.relpersistence, c.relreplident, am.amname
+	FROM pg_catalog.pg_class c
+	 LEFT JOIN pg_catalog.pg_class tc ON (c.reltoastrelid = tc.oid)
+	LEFT JOIN pg_catalog.pg_am am ON (c.relam = am.oid)
+	WHERE c.oid = '16413';
+freecodecamp LOG:  statement: SELECT a.attname,
+	  pg_catalog.format_type(a.atttypid, a.atttypmod),
+	  (SELECT pg_catalog.pg_get_expr(d.adbin, d.adrelid, true)
+	   FROM pg_catalog.pg_attrdef d
+	   WHERE d.adrelid = a.attrelid AND d.adnum = a.attnum AND a.atthasdef),
+	  a.attnotnull,
+	  (SELECT c.collname FROM pg_catalog.pg_collation c, pg_catalog.pg_type t
+	   WHERE c.oid = a.attcollation AND t.oid = a.atttypid AND a.attcollation <> t.typcollation) AS attcollation,
+	  a.attidentity,
+	  a.attgenerated
+	FROM pg_catalog.pg_attribute a
+	WHERE a.attrelid = '16413' AND a.attnum > 0 AND NOT a.attisdropped
+	ORDER BY a.attnum;
+freecodecamp LOG:  statement: SELECT c2.relname, i.indisprimary, i.indisunique, i.indisclustered, i.indisvalid, pg_catalog.pg_get_indexdef(i.indexrelid, 0, true),
+	  pg_catalog.pg_get_constraintdef(con.oid, true), contype, condeferrable, condeferred, i.indisreplident, c2.reltablespace
+	FROM pg_catalog.pg_class c, pg_catalog.pg_class c2, pg_catalog.pg_index i
+	  LEFT JOIN pg_catalog.pg_constraint con ON (conrelid = i.indrelid AND conindid = i.indexrelid AND contype IN ('p','u','x'))
+	WHERE c.oid = '16413' AND c.oid = i.indrelid AND i.indexrelid = c2.oid
+	ORDER BY i.indisprimary DESC, i.indisunique DESC, c2.relname;
+freecodecamp LOG:  statement: SELECT true as sametable, conname,
+	  pg_catalog.pg_get_constraintdef(r.oid, true) as condef,
+	  conrelid::pg_catalog.regclass AS ontable
+	FROM pg_catalog.pg_constraint r
+	WHERE r.conrelid = '16413' AND r.contype = 'f'
+	     AND conparentid = 0
+	ORDER BY conname
+freecodecamp LOG:  statement: SELECT conname, conrelid::pg_catalog.regclass AS ontable,
+	       pg_catalog.pg_get_constraintdef(oid, true) AS condef
+	  FROM pg_catalog.pg_constraint c
+	 WHERE confrelid IN (SELECT pg_catalog.pg_partition_ancestors('16413')
+	                     UNION ALL VALUES ('16413'::pg_catalog.regclass))
+	       AND contype = 'f' AND conparentid = 0
+	ORDER BY conname;
+freecodecamp LOG:  statement: SELECT pol.polname, pol.polpermissive,
+	  CASE WHEN pol.polroles = '{0}' THEN NULL ELSE pg_catalog.array_to_string(array(select rolname from pg_catalog.pg_roles where oid = any (pol.polroles) order by 1),',') END,
+	  pg_catalog.pg_get_expr(pol.polqual, pol.polrelid),
+	  pg_catalog.pg_get_expr(pol.polwithcheck, pol.polrelid),
+	  CASE pol.polcmd
+	    WHEN 'r' THEN 'SELECT'
+	    WHEN 'a' THEN 'INSERT'
+	    WHEN 'w' THEN 'UPDATE'
+	    WHEN 'd' THEN 'DELETE'
+	    END AS cmd
+	FROM pg_catalog.pg_policy pol
+	WHERE pol.polrelid = '16413' ORDER BY 1;
+freecodecamp LOG:  statement: SELECT oid, stxrelid::pg_catalog.regclass, stxnamespace::pg_catalog.regnamespace AS nsp, stxname,
+	  (SELECT pg_catalog.string_agg(pg_catalog.quote_ident(attname),', ')
+	   FROM pg_catalog.unnest(stxkeys) s(attnum)
+	   JOIN pg_catalog.pg_attribute a ON (stxrelid = a.attrelid AND
+	        a.attnum = s.attnum AND NOT attisdropped)) AS columns,
+	  'd' = any(stxkind) AS ndist_enabled,
+	  'f' = any(stxkind) AS deps_enabled,
+	  'm' = any(stxkind) AS mcv_enabled
+	FROM pg_catalog.pg_statistic_ext stat WHERE stxrelid = '16413'
+	ORDER BY 1;
+freecodecamp LOG:  statement: SELECT pubname
+	FROM pg_catalog.pg_publication p
+	JOIN pg_catalog.pg_publication_rel pr ON p.oid = pr.prpubid
+	WHERE pr.prrelid = '16413'
+	UNION ALL
+	SELECT pubname
+	FROM pg_catalog.pg_publication p
+	WHERE p.puballtables AND pg_catalog.pg_relation_is_publishable('16413')
+	ORDER BY 1;
+freecodecamp LOG:  statement: SELECT t.tgname, pg_catalog.pg_get_triggerdef(t.oid, true), t.tgenabled, t.tgisinternal
+	FROM pg_catalog.pg_trigger t
+	WHERE t.tgrelid = '16413' AND (NOT t.tgisinternal OR (t.tgisinternal AND t.tgenabled = 'D') 
+	    OR EXISTS (SELECT 1 FROM pg_catalog.pg_depend WHERE objid = t.oid 
+	        AND refclassid = 'pg_catalog.pg_trigger'::pg_catalog.regclass))
+	ORDER BY 1;
+freecodecamp LOG:  statement: SELECT c.oid::pg_catalog.regclass FROM pg_catalog.pg_class c, pg_catalog.pg_inherits i WHERE c.oid=i.inhparent AND i.inhrelid = '16413' AND c.relkind != 'p' ORDER BY inhseqno;
+freecodecamp LOG:  statement: SELECT c.oid::pg_catalog.regclass,       pg_catalog.pg_get_expr(c.relpartbound, c.oid),       c.relkind FROM pg_catalog.pg_class c, pg_catalog.pg_inherits i WHERE c.oid=i.inhrelid AND i.inhparent = '16413' ORDER BY pg_catalog.pg_get_expr(c.relpartbound, c.oid) = 'DEFAULT',          c.oid::pg_catalog.regclass::pg_catalog.text;
+freecodecamp LOG:  statement: ALTER TABLE rentals ADD COLUMN date_rented DATE NOT NULL DEFAULT NOW();
+[unknown] LOG:  connection received: host=127.0.0.1 port=41454
+postgres LOG:  connection authorized: user=postgres database=bikes
+postgres LOG:  statement: SELECT column_name FROM INFORMATION_SCHEMA.COLUMNS WHERE table_schema = 'public' AND is_nullable = 'NO' AND table_name = 'rentals' AND column_name = 'date_rented' AND data_type = 'date' AND column_default = 'now()';
+freecodecamp LOG:  statement: SELECT c.oid,
+	  n.nspname,
+	  c.relname
+	FROM pg_catalog.pg_class c
+	     LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace
+	WHERE c.relname OPERATOR(pg_catalog.~) '^(rentals)$' COLLATE pg_catalog.default
+	  AND pg_catalog.pg_table_is_visible(c.oid)
+	ORDER BY 2, 3;
+freecodecamp LOG:  statement: SELECT c.relchecks, c.relkind, c.relhasindex, c.relhasrules, c.relhastriggers, c.relrowsecurity, c.relforcerowsecurity, false AS relhasoids, c.relispartition, '', c.reltablespace, CASE WHEN c.reloftype = 0 THEN '' ELSE c.reloftype::pg_catalog.regtype::pg_catalog.text END, c.relpersistence, c.relreplident, am.amname
+	FROM pg_catalog.pg_class c
+	 LEFT JOIN pg_catalog.pg_class tc ON (c.reltoastrelid = tc.oid)
+	LEFT JOIN pg_catalog.pg_am am ON (c.relam = am.oid)
+	WHERE c.oid = '16413';
+freecodecamp LOG:  statement: SELECT a.attname,
+	  pg_catalog.format_type(a.atttypid, a.atttypmod),
+	  (SELECT pg_catalog.pg_get_expr(d.adbin, d.adrelid, true)
+	   FROM pg_catalog.pg_attrdef d
+	   WHERE d.adrelid = a.attrelid AND d.adnum = a.attnum AND a.atthasdef),
+	  a.attnotnull,
+	  (SELECT c.collname FROM pg_catalog.pg_collation c, pg_catalog.pg_type t
+	   WHERE c.oid = a.attcollation AND t.oid = a.atttypid AND a.attcollation <> t.typcollation) AS attcollation,
+	  a.attidentity,
+	  a.attgenerated
+	FROM pg_catalog.pg_attribute a
+	WHERE a.attrelid = '16413' AND a.attnum > 0 AND NOT a.attisdropped
+	ORDER BY a.attnum;
+freecodecamp LOG:  statement: SELECT c2.relname, i.indisprimary, i.indisunique, i.indisclustered, i.indisvalid, pg_catalog.pg_get_indexdef(i.indexrelid, 0, true),
+	  pg_catalog.pg_get_constraintdef(con.oid, true), contype, condeferrable, condeferred, i.indisreplident, c2.reltablespace
+	FROM pg_catalog.pg_class c, pg_catalog.pg_class c2, pg_catalog.pg_index i
+	  LEFT JOIN pg_catalog.pg_constraint con ON (conrelid = i.indrelid AND conindid = i.indexrelid AND contype IN ('p','u','x'))
+	WHERE c.oid = '16413' AND c.oid = i.indrelid AND i.indexrelid = c2.oid
+	ORDER BY i.indisprimary DESC, i.indisunique DESC, c2.relname;
+freecodecamp LOG:  statement: SELECT true as sametable, conname,
+	  pg_catalog.pg_get_constraintdef(r.oid, true) as condef,
+	  conrelid::pg_catalog.regclass AS ontable
+	FROM pg_catalog.pg_constraint r
+	WHERE r.conrelid = '16413' AND r.contype = 'f'
+	     AND conparentid = 0
+	ORDER BY conname
+freecodecamp LOG:  statement: SELECT conname, conrelid::pg_catalog.regclass AS ontable,
+	       pg_catalog.pg_get_constraintdef(oid, true) AS condef
+	  FROM pg_catalog.pg_constraint c
+	 WHERE confrelid IN (SELECT pg_catalog.pg_partition_ancestors('16413')
+	                     UNION ALL VALUES ('16413'::pg_catalog.regclass))
+	       AND contype = 'f' AND conparentid = 0
+	ORDER BY conname;
+freecodecamp LOG:  statement: SELECT pol.polname, pol.polpermissive,
+	  CASE WHEN pol.polroles = '{0}' THEN NULL ELSE pg_catalog.array_to_string(array(select rolname from pg_catalog.pg_roles where oid = any (pol.polroles) order by 1),',') END,
+	  pg_catalog.pg_get_expr(pol.polqual, pol.polrelid),
+	  pg_catalog.pg_get_expr(pol.polwithcheck, pol.polrelid),
+	  CASE pol.polcmd
+	    WHEN 'r' THEN 'SELECT'
+	    WHEN 'a' THEN 'INSERT'
+	    WHEN 'w' THEN 'UPDATE'
+	    WHEN 'd' THEN 'DELETE'
+	    END AS cmd
+	FROM pg_catalog.pg_policy pol
+	WHERE pol.polrelid = '16413' ORDER BY 1;
+freecodecamp LOG:  statement: SELECT oid, stxrelid::pg_catalog.regclass, stxnamespace::pg_catalog.regnamespace AS nsp, stxname,
+	  (SELECT pg_catalog.string_agg(pg_catalog.quote_ident(attname),', ')
+	   FROM pg_catalog.unnest(stxkeys) s(attnum)
+	   JOIN pg_catalog.pg_attribute a ON (stxrelid = a.attrelid AND
+	        a.attnum = s.attnum AND NOT attisdropped)) AS columns,
+	  'd' = any(stxkind) AS ndist_enabled,
+	  'f' = any(stxkind) AS deps_enabled,
+	  'm' = any(stxkind) AS mcv_enabled
+	FROM pg_catalog.pg_statistic_ext stat WHERE stxrelid = '16413'
+	ORDER BY 1;
+freecodecamp LOG:  statement: SELECT pubname
+	FROM pg_catalog.pg_publication p
+	JOIN pg_catalog.pg_publication_rel pr ON p.oid = pr.prpubid
+	WHERE pr.prrelid = '16413'
+	UNION ALL
+	SELECT pubname
+	FROM pg_catalog.pg_publication p
+	WHERE p.puballtables AND pg_catalog.pg_relation_is_publishable('16413')
+	ORDER BY 1;
+freecodecamp LOG:  statement: SELECT t.tgname, pg_catalog.pg_get_triggerdef(t.oid, true), t.tgenabled, t.tgisinternal
+	FROM pg_catalog.pg_trigger t
+	WHERE t.tgrelid = '16413' AND (NOT t.tgisinternal OR (t.tgisinternal AND t.tgenabled = 'D') 
+	    OR EXISTS (SELECT 1 FROM pg_catalog.pg_depend WHERE objid = t.oid 
+	        AND refclassid = 'pg_catalog.pg_trigger'::pg_catalog.regclass))
+	ORDER BY 1;
+freecodecamp LOG:  statement: SELECT c.oid::pg_catalog.regclass FROM pg_catalog.pg_class c, pg_catalog.pg_inherits i WHERE c.oid=i.inhparent AND i.inhrelid = '16413' AND c.relkind != 'p' ORDER BY inhseqno;
+freecodecamp LOG:  statement: SELECT c.oid::pg_catalog.regclass,       pg_catalog.pg_get_expr(c.relpartbound, c.oid),       c.relkind FROM pg_catalog.pg_class c, pg_catalog.pg_inherits i WHERE c.oid=i.inhrelid AND i.inhparent = '16413' ORDER BY pg_catalog.pg_get_expr(c.relpartbound, c.oid) = 'DEFAULT',          c.oid::pg_catalog.regclass::pg_catalog.text;
+freecodecamp ERROR:  syntax error at or near "ALTErentals" at character 1
+freecodecamp STATEMENT:  ALTErentals ADD COLUMN date_returned DATE;
+freecodecamp LOG:  statement: ALTER TABLE rentals ADD COLUMN date_returned DATE;
+[unknown] LOG:  connection received: host=127.0.0.1 port=55074
+postgres LOG:  connection authorized: user=postgres database=bikes
+postgres LOG:  statement: SELECT column_name FROM INFORMATION_SCHEMA.COLUMNS WHERE table_schema = 'public' AND table_name = 'rentals' AND column_name = 'date_returned' AND data_type = 'date';
+freecodecamp LOG:  statement: SELECT c.oid,
+	  n.nspname,
+	  c.relname
+	FROM pg_catalog.pg_class c
+	     LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace
+	WHERE c.relname OPERATOR(pg_catalog.~) '^(rentals)$' COLLATE pg_catalog.default
+	  AND pg_catalog.pg_table_is_visible(c.oid)
+	ORDER BY 2, 3;
+freecodecamp LOG:  statement: SELECT c.relchecks, c.relkind, c.relhasindex, c.relhasrules, c.relhastriggers, c.relrowsecurity, c.relforcerowsecurity, false AS relhasoids, c.relispartition, '', c.reltablespace, CASE WHEN c.reloftype = 0 THEN '' ELSE c.reloftype::pg_catalog.regtype::pg_catalog.text END, c.relpersistence, c.relreplident, am.amname
+	FROM pg_catalog.pg_class c
+	 LEFT JOIN pg_catalog.pg_class tc ON (c.reltoastrelid = tc.oid)
+	LEFT JOIN pg_catalog.pg_am am ON (c.relam = am.oid)
+	WHERE c.oid = '16413';
+freecodecamp LOG:  statement: SELECT a.attname,
+	  pg_catalog.format_type(a.atttypid, a.atttypmod),
+	  (SELECT pg_catalog.pg_get_expr(d.adbin, d.adrelid, true)
+	   FROM pg_catalog.pg_attrdef d
+	   WHERE d.adrelid = a.attrelid AND d.adnum = a.attnum AND a.atthasdef),
+	  a.attnotnull,
+	  (SELECT c.collname FROM pg_catalog.pg_collation c, pg_catalog.pg_type t
+	   WHERE c.oid = a.attcollation AND t.oid = a.atttypid AND a.attcollation <> t.typcollation) AS attcollation,
+	  a.attidentity,
+	  a.attgenerated
+	FROM pg_catalog.pg_attribute a
+	WHERE a.attrelid = '16413' AND a.attnum > 0 AND NOT a.attisdropped
+	ORDER BY a.attnum;
+freecodecamp LOG:  statement: SELECT c2.relname, i.indisprimary, i.indisunique, i.indisclustered, i.indisvalid, pg_catalog.pg_get_indexdef(i.indexrelid, 0, true),
+	  pg_catalog.pg_get_constraintdef(con.oid, true), contype, condeferrable, condeferred, i.indisreplident, c2.reltablespace
+	FROM pg_catalog.pg_class c, pg_catalog.pg_class c2, pg_catalog.pg_index i
+	  LEFT JOIN pg_catalog.pg_constraint con ON (conrelid = i.indrelid AND conindid = i.indexrelid AND contype IN ('p','u','x'))
+	WHERE c.oid = '16413' AND c.oid = i.indrelid AND i.indexrelid = c2.oid
+	ORDER BY i.indisprimary DESC, i.indisunique DESC, c2.relname;
+freecodecamp LOG:  statement: SELECT true as sametable, conname,
+	  pg_catalog.pg_get_constraintdef(r.oid, true) as condef,
+	  conrelid::pg_catalog.regclass AS ontable
+	FROM pg_catalog.pg_constraint r
+	WHERE r.conrelid = '16413' AND r.contype = 'f'
+	     AND conparentid = 0
+	ORDER BY conname
+freecodecamp LOG:  statement: SELECT conname, conrelid::pg_catalog.regclass AS ontable,
+	       pg_catalog.pg_get_constraintdef(oid, true) AS condef
+	  FROM pg_catalog.pg_constraint c
+	 WHERE confrelid IN (SELECT pg_catalog.pg_partition_ancestors('16413')
+	                     UNION ALL VALUES ('16413'::pg_catalog.regclass))
+	       AND contype = 'f' AND conparentid = 0
+	ORDER BY conname;
+freecodecamp LOG:  statement: SELECT pol.polname, pol.polpermissive,
+	  CASE WHEN pol.polroles = '{0}' THEN NULL ELSE pg_catalog.array_to_string(array(select rolname from pg_catalog.pg_roles where oid = any (pol.polroles) order by 1),',') END,
+	  pg_catalog.pg_get_expr(pol.polqual, pol.polrelid),
+	  pg_catalog.pg_get_expr(pol.polwithcheck, pol.polrelid),
+	  CASE pol.polcmd
+	    WHEN 'r' THEN 'SELECT'
+	    WHEN 'a' THEN 'INSERT'
+	    WHEN 'w' THEN 'UPDATE'
+	    WHEN 'd' THEN 'DELETE'
+	    END AS cmd
+	FROM pg_catalog.pg_policy pol
+	WHERE pol.polrelid = '16413' ORDER BY 1;
+freecodecamp LOG:  statement: SELECT oid, stxrelid::pg_catalog.regclass, stxnamespace::pg_catalog.regnamespace AS nsp, stxname,
+	  (SELECT pg_catalog.string_agg(pg_catalog.quote_ident(attname),', ')
+	   FROM pg_catalog.unnest(stxkeys) s(attnum)
+	   JOIN pg_catalog.pg_attribute a ON (stxrelid = a.attrelid AND
+	        a.attnum = s.attnum AND NOT attisdropped)) AS columns,
+	  'd' = any(stxkind) AS ndist_enabled,
+	  'f' = any(stxkind) AS deps_enabled,
+	  'm' = any(stxkind) AS mcv_enabled
+	FROM pg_catalog.pg_statistic_ext stat WHERE stxrelid = '16413'
+	ORDER BY 1;
+freecodecamp LOG:  statement: SELECT pubname
+	FROM pg_catalog.pg_publication p
+	JOIN pg_catalog.pg_publication_rel pr ON p.oid = pr.prpubid
+	WHERE pr.prrelid = '16413'
+	UNION ALL
+	SELECT pubname
+	FROM pg_catalog.pg_publication p
+	WHERE p.puballtables AND pg_catalog.pg_relation_is_publishable('16413')
+	ORDER BY 1;
+freecodecamp LOG:  statement: SELECT t.tgname, pg_catalog.pg_get_triggerdef(t.oid, true), t.tgenabled, t.tgisinternal
+	FROM pg_catalog.pg_trigger t
+	WHERE t.tgrelid = '16413' AND (NOT t.tgisinternal OR (t.tgisinternal AND t.tgenabled = 'D') 
+	    OR EXISTS (SELECT 1 FROM pg_catalog.pg_depend WHERE objid = t.oid 
+	        AND refclassid = 'pg_catalog.pg_trigger'::pg_catalog.regclass))
+	ORDER BY 1;
+freecodecamp LOG:  statement: SELECT c.oid::pg_catalog.regclass FROM pg_catalog.pg_class c, pg_catalog.pg_inherits i WHERE c.oid=i.inhparent AND i.inhrelid = '16413' AND c.relkind != 'p' ORDER BY inhseqno;
+freecodecamp LOG:  statement: SELECT c.oid::pg_catalog.regclass,       pg_catalog.pg_get_expr(c.relpartbound, c.oid),       c.relkind FROM pg_catalog.pg_class c, pg_catalog.pg_inherits i WHERE c.oid=i.inhrelid AND i.inhparent = '16413' ORDER BY pg_catalog.pg_get_expr(c.relpartbound, c.oid) = 'DEFAULT',          c.oid::pg_catalog.regclass::pg_catalog.text;
+freecodecamp LOG:  statement: ;
+freecodecamp LOG:  statement: SELECT d.datname as "Name",
+	       pg_catalog.pg_get_userbyid(d.datdba) as "Owner",
+	       pg_catalog.pg_encoding_to_char(d.encoding) as "Encoding",
+	       d.datcollate as "Collate",
+	       d.datctype as "Ctype",
+	       pg_catalog.array_to_string(d.datacl, E'\n') AS "Access privileges"
+	FROM pg_catalog.pg_database d
+	ORDER BY 1;
+freecodecamp LOG:  statement: SELECT n.nspname as "Schema",
+	  c.relname as "Name",
+	  CASE c.relkind WHEN 'r' THEN 'table' WHEN 'v' THEN 'view' WHEN 'm' THEN 'materialized view' WHEN 'i' THEN 'index' WHEN 'S' THEN 'sequence' WHEN 's' THEN 'special' WHEN 'f' THEN 'foreign table' WHEN 'p' THEN 'partitioned table' WHEN 'I' THEN 'partitioned index' END as "Type",
+	  pg_catalog.pg_get_userbyid(c.relowner) as "Owner"
+	FROM pg_catalog.pg_class c
+	     LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace
+	WHERE c.relkind IN ('r','p','v','m','S','f','')
+	      AND n.nspname <> 'pg_catalog'
+	      AND n.nspname <> 'information_schema'
+	      AND n.nspname !~ '^pg_toast'
+	  AND pg_catalog.pg_table_is_visible(c.oid)
+	ORDER BY 1,2;
+freecodecamp LOG:  statement: SELECT c.oid,
+	  n.nspname,
+	  c.relname
+	FROM pg_catalog.pg_class c
+	     LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace
+	WHERE c.relname OPERATOR(pg_catalog.~) '^(bikes)$' COLLATE pg_catalog.default
+	  AND pg_catalog.pg_table_is_visible(c.oid)
+	ORDER BY 2, 3;
+freecodecamp LOG:  statement: SELECT c.relchecks, c.relkind, c.relhasindex, c.relhasrules, c.relhastriggers, c.relrowsecurity, c.relforcerowsecurity, false AS relhasoids, c.relispartition, '', c.reltablespace, CASE WHEN c.reloftype = 0 THEN '' ELSE c.reloftype::pg_catalog.regtype::pg_catalog.text END, c.relpersistence, c.relreplident, am.amname
+	FROM pg_catalog.pg_class c
+	 LEFT JOIN pg_catalog.pg_class tc ON (c.reltoastrelid = tc.oid)
+	LEFT JOIN pg_catalog.pg_am am ON (c.relam = am.oid)
+	WHERE c.oid = '16386';
+freecodecamp LOG:  statement: SELECT a.attname,
+	  pg_catalog.format_type(a.atttypid, a.atttypmod),
+	  (SELECT pg_catalog.pg_get_expr(d.adbin, d.adrelid, true)
+	   FROM pg_catalog.pg_attrdef d
+	   WHERE d.adrelid = a.attrelid AND d.adnum = a.attnum AND a.atthasdef),
+	  a.attnotnull,
+	  (SELECT c.collname FROM pg_catalog.pg_collation c, pg_catalog.pg_type t
+	   WHERE c.oid = a.attcollation AND t.oid = a.atttypid AND a.attcollation <> t.typcollation) AS attcollation,
+	  a.attidentity,
+	  a.attgenerated
+	FROM pg_catalog.pg_attribute a
+	WHERE a.attrelid = '16386' AND a.attnum > 0 AND NOT a.attisdropped
+	ORDER BY a.attnum;
+freecodecamp LOG:  statement: SELECT c2.relname, i.indisprimary, i.indisunique, i.indisclustered, i.indisvalid, pg_catalog.pg_get_indexdef(i.indexrelid, 0, true),
+	  pg_catalog.pg_get_constraintdef(con.oid, true), contype, condeferrable, condeferred, i.indisreplident, c2.reltablespace
+	FROM pg_catalog.pg_class c, pg_catalog.pg_class c2, pg_catalog.pg_index i
+	  LEFT JOIN pg_catalog.pg_constraint con ON (conrelid = i.indrelid AND conindid = i.indexrelid AND contype IN ('p','u','x'))
+	WHERE c.oid = '16386' AND c.oid = i.indrelid AND i.indexrelid = c2.oid
+	ORDER BY i.indisprimary DESC, i.indisunique DESC, c2.relname;
+freecodecamp LOG:  statement: SELECT true as sametable, conname,
+	  pg_catalog.pg_get_constraintdef(r.oid, true) as condef,
+	  conrelid::pg_catalog.regclass AS ontable
+	FROM pg_catalog.pg_constraint r
+	WHERE r.conrelid = '16386' AND r.contype = 'f'
+	     AND conparentid = 0
+	ORDER BY conname
+freecodecamp LOG:  statement: SELECT conname, conrelid::pg_catalog.regclass AS ontable,
+	       pg_catalog.pg_get_constraintdef(oid, true) AS condef
+	  FROM pg_catalog.pg_constraint c
+	 WHERE confrelid IN (SELECT pg_catalog.pg_partition_ancestors('16386')
+	                     UNION ALL VALUES ('16386'::pg_catalog.regclass))
+	       AND contype = 'f' AND conparentid = 0
+	ORDER BY conname;
+freecodecamp LOG:  statement: SELECT pol.polname, pol.polpermissive,
+	  CASE WHEN pol.polroles = '{0}' THEN NULL ELSE pg_catalog.array_to_string(array(select rolname from pg_catalog.pg_roles where oid = any (pol.polroles) order by 1),',') END,
+	  pg_catalog.pg_get_expr(pol.polqual, pol.polrelid),
+	  pg_catalog.pg_get_expr(pol.polwithcheck, pol.polrelid),
+	  CASE pol.polcmd
+	    WHEN 'r' THEN 'SELECT'
+	    WHEN 'a' THEN 'INSERT'
+	    WHEN 'w' THEN 'UPDATE'
+	    WHEN 'd' THEN 'DELETE'
+	    END AS cmd
+	FROM pg_catalog.pg_policy pol
+	WHERE pol.polrelid = '16386' ORDER BY 1;
+freecodecamp LOG:  statement: SELECT oid, stxrelid::pg_catalog.regclass, stxnamespace::pg_catalog.regnamespace AS nsp, stxname,
+	  (SELECT pg_catalog.string_agg(pg_catalog.quote_ident(attname),', ')
+	   FROM pg_catalog.unnest(stxkeys) s(attnum)
+	   JOIN pg_catalog.pg_attribute a ON (stxrelid = a.attrelid AND
+	        a.attnum = s.attnum AND NOT attisdropped)) AS columns,
+	  'd' = any(stxkind) AS ndist_enabled,
+	  'f' = any(stxkind) AS deps_enabled,
+	  'm' = any(stxkind) AS mcv_enabled
+	FROM pg_catalog.pg_statistic_ext stat WHERE stxrelid = '16386'
+	ORDER BY 1;
+freecodecamp LOG:  statement: SELECT pubname
+	FROM pg_catalog.pg_publication p
+	JOIN pg_catalog.pg_publication_rel pr ON p.oid = pr.prpubid
+	WHERE pr.prrelid = '16386'
+	UNION ALL
+	SELECT pubname
+	FROM pg_catalog.pg_publication p
+	WHERE p.puballtables AND pg_catalog.pg_relation_is_publishable('16386')
+	ORDER BY 1;
+freecodecamp LOG:  statement: SELECT t.tgname, pg_catalog.pg_get_triggerdef(t.oid, true), t.tgenabled, t.tgisinternal
+	FROM pg_catalog.pg_trigger t
+	WHERE t.tgrelid = '16386' AND (NOT t.tgisinternal OR (t.tgisinternal AND t.tgenabled = 'D') 
+	    OR EXISTS (SELECT 1 FROM pg_catalog.pg_depend WHERE objid = t.oid 
+	        AND refclassid = 'pg_catalog.pg_trigger'::pg_catalog.regclass))
+	ORDER BY 1;
+freecodecamp LOG:  statement: SELECT c.oid::pg_catalog.regclass FROM pg_catalog.pg_class c, pg_catalog.pg_inherits i WHERE c.oid=i.inhparent AND i.inhrelid = '16386' AND c.relkind != 'p' ORDER BY inhseqno;
+freecodecamp LOG:  statement: SELECT c.oid::pg_catalog.regclass,       pg_catalog.pg_get_expr(c.relpartbound, c.oid),       c.relkind FROM pg_catalog.pg_class c, pg_catalog.pg_inherits i WHERE c.oid=i.inhrelid AND i.inhparent = '16386' ORDER BY pg_catalog.pg_get_expr(c.relpartbound, c.oid) = 'DEFAULT',          c.oid::pg_catalog.regclass::pg_catalog.text;
+[unknown] LOG:  connection received: host=127.0.0.1 port=42594
+postgres LOG:  connection authorized: user=postgres database=bikes
+postgres LOG:  statement: SELECT * FROM bikes WHERE type='Mountain' AND size=27;
+freecodecamp LOG:  statement: INSERT INTO bikes(type, size) VALUES('Mountain', 27);
+[unknown] LOG:  connection received: host=127.0.0.1 port=36998
+postgres LOG:  connection authorized: user=postgres database=bikes
+postgres LOG:  statement: SELECT * FROM bikes WHERE type='Mountain' AND size=27;
+freecodecamp LOG:  statement: SELECT * FROM bikes;
+freecodecamp LOG:  statement: INSERT INTO bikes(type, size) VALUES('Mountain', 28);
+[unknown] LOG:  connection received: host=127.0.0.1 port=58962
+postgres LOG:  connection authorized: user=postgres database=bikes
+postgres LOG:  statement: SELECT * FROM bikes WHERE type='Mountain' AND size=28;
+freecodecamp LOG:  statement: INSERT INTO bikes(type, size) VALUES('Mountain', 29);
+[unknown] LOG:  connection received: host=127.0.0.1 port=58970
+postgres LOG:  connection authorized: user=postgres database=bikes
+postgres LOG:  statement: SELECT * FROM bikes WHERE type='Mountain' AND size=29;
+freecodecamp LOG:  statement: INSERT INTO bikes(type, size) VALUES('Road', 27);
+[unknown] LOG:  connection received: host=127.0.0.1 port=43342
+postgres LOG:  connection authorized: user=postgres database=bikes
+postgres LOG:  statement: SELECT * FROM bikes WHERE type='Road' AND size=27;
+freecodecamp LOG:  statement: SELECT * FROM bikes;
+freecodecamp LOG:  statement: INSERT INTO bikes(type, size) VALUES('Road', 28);
+[unknown] LOG:  connection received: host=127.0.0.1 port=40076
+postgres LOG:  connection authorized: user=postgres database=bikes
+postgres LOG:  statement: SELECT * FROM bikes WHERE type='Road' AND size=28;
+postgres LOG:  statement: SELECT * FROM bikes WHERE type='Road' AND size=29;
+freecodecamp LOG:  statement: SELECT * FROM bikes;
+[unknown] LOG:  connection received: host=127.0.0.1 port=40088
+postgres LOG:  connection authorized: user=postgres database=bikes
+postgres LOG:  statement: SELECT * FROM bikes WHERE type='Road' AND size=28;
+postgres LOG:  statement: SELECT * FROM bikes WHERE type='Road' AND size=29;
+freecodecamp ERROR:  syntax error at or near "*" at character 6
+freecodecamp STATEMENT:  DROP * FROM TABLE baikes WHERE type='Road' AND size=28
+	;
+freecodecamp ERROR:  syntax error at or near "TABLE" at character 13
+freecodecamp STATEMENT:  DELETE FROM TABLE baikes WHERE type='Road' AND size=28;
+freecodecamp LOG:  statement: DELETE FROM baikes WHERE type='Road' AND size=28;
+freecodecamp ERROR:  relation "baikes" does not exist at character 13
+freecodecamp STATEMENT:  DELETE FROM baikes WHERE type='Road' AND size=28;
+freecodecamp LOG:  statement: DELETE FROM baiks WHERE type='Road' AND size=28;
+freecodecamp ERROR:  relation "baiks" does not exist at character 13
+freecodecamp STATEMENT:  DELETE FROM baiks WHERE type='Road' AND size=28;
+freecodecamp LOG:  statement: DELETE FROM bikes WHERE type='Road' AND size=28;
+[unknown] LOG:  connection received: host=127.0.0.1 port=57854
+postgres LOG:  connection authorized: user=postgres database=bikes
+postgres LOG:  statement: SELECT * FROM bikes WHERE type='Road' AND size=28;
+postgres LOG:  statement: SELECT * FROM bikes WHERE type='Road' AND size=29;
+freecodecamp LOG:  statement: SELECT * FROM bikes;
+[unknown] LOG:  connection received: host=127.0.0.1 port=48718
+postgres LOG:  connection authorized: user=postgres database=bikes
+postgres LOG:  statement: SELECT * FROM bikes WHERE type='Road' AND size=28;
+postgres LOG:  statement: SELECT * FROM bikes WHERE type='Road' AND size=29;
+freecodecamp ERROR:  syntax error at or near "(" at character 50
+freecodecamp STATEMENT:  INSERT INTO bikes(type, size) VALUES('Road', 28) ('Road', 29);
+freecodecamp LOG:  statement: INSERT INTO bikes(type, size) VALUES('Road', 28), ('Road', 29);
+[unknown] LOG:  connection received: host=127.0.0.1 port=44096
+postgres LOG:  connection authorized: user=postgres database=bikes
+postgres LOG:  statement: SELECT * FROM bikes WHERE type='Road' AND size=28;
+postgres LOG:  statement: SELECT * FROM bikes WHERE type='Road' AND size=29;
+freecodecamp LOG:  statement: INSERT INTO bikes(type, size) VALUES('BMX', 19), ('BMX', 20), ('BMX', 21);
+[unknown] LOG:  connection received: host=127.0.0.1 port=47872
+postgres LOG:  connection authorized: user=postgres database=bikes
+postgres LOG:  statement: SELECT * FROM bikes WHERE type='BMX' AND size=19;
+postgres LOG:  statement: SELECT * FROM bikes WHERE type='BMX' AND size=20;
+postgres LOG:  statement: SELECT * FROM bikes WHERE type='BMX' AND size=21;
+freecodecamp LOG:  statement: SELECT * FROM bikes;
+[unknown] LOG:  connection received: host=127.0.0.1 port=44320
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT bike_id, type, size FROM bikes WHERE available=true ORDER BY bike_id;
+freecodecamp ERROR:  syntax error at or near "TABLE" at character 8
+freecodecamp STATEMENT:  UPDATE TABLE bikes SET available=false WHERE available=true;
+freecodecamp LOG:  statement: UPDATE bikes SET available=false WHERE available=true;
+[unknown] LOG:  connection received: host=127.0.0.1 port=39986
+postgres LOG:  connection authorized: user=postgres database=bikes
+postgres LOG:  statement: SELECT bike_id FROM bikes WHERE available=true
+postgres LOG:  statement: SELECT bike_id FROM bikes WHERE available=false
+freecodecamp LOG:  could not receive data from client: Connection reset by peer
+[unknown] LOG:  connection received: host=127.0.0.1 port=59950
+freecodecamp LOG:  connection authorized: user=freecodecamp database=postgres application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+[unknown] LOG:  connection received: host=127.0.0.1 port=59954
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+[unknown] LOG:  connection received: host=127.0.0.1 port=57278
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT bike_id, type, size FROM bikes WHERE available=true ORDER BY bike_id;
+[unknown] LOG:  connection received: host=127.0.0.1 port=37060
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT bike_id, type, size FROM bikes WHERE available=true ORDER BY bike_id;
+[unknown] LOG:  connection received: host=127.0.0.1 port=53246
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT bike_id, type, size FROM bikes WHERE available=true ORDER BY bike_id;
+freecodecamp LOG:  statement: UPDATE bikes SET available=true WHERE NOT type='BMX';
+[unknown] LOG:  connection received: host=127.0.0.1 port=37210
+postgres LOG:  connection authorized: user=postgres database=bikes
+postgres LOG:  statement: SELECT bike_id FROM bikes WHERE available=true AND type='BMX'
+postgres LOG:  statement: SELECT bike_id FROM bikes WHERE available=false AND type<>'BMX'
+postgres LOG:  statement: SELECT bike_id FROM bikes
+[unknown] LOG:  connection received: host=127.0.0.1 port=54498
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT bike_id, type, size FROM bikes WHERE available=true ORDER BY bike_id;
+[unknown] LOG:  connection received: host=127.0.0.1 port=54874
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT bike_id, type, size FROM bikes WHERE available=true ORDER BY bike_id;
+[unknown] LOG:  connection received: host=127.0.0.1 port=37302
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT bike_id, type, size FROM bikes WHERE available=true ORDER BY bike_id;
+[unknown] LOG:  connection received: host=127.0.0.1 port=32960
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT bike_id, type, size FROM bikes WHERE available=true ORDER BY bike_id;
+[unknown] LOG:  connection received: host=127.0.0.1 port=60020
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT bike_id, type, size FROM bikes WHERE available=true ORDER BY bike_id;
+freecodecamp LOG:  statement: SELECT c.oid,
+	  n.nspname,
+	  c.relname
+	FROM pg_catalog.pg_class c
+	     LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace
+	WHERE c.relname OPERATOR(pg_catalog.~) '^(bikes)$' COLLATE pg_catalog.default
+	  AND pg_catalog.pg_table_is_visible(c.oid)
+	ORDER BY 2, 3;
+freecodecamp LOG:  statement: SELECT c.relchecks, c.relkind, c.relhasindex, c.relhasrules, c.relhastriggers, c.relrowsecurity, c.relforcerowsecurity, false AS relhasoids, c.relispartition, '', c.reltablespace, CASE WHEN c.reloftype = 0 THEN '' ELSE c.reloftype::pg_catalog.regtype::pg_catalog.text END, c.relpersistence, c.relreplident, am.amname
+	FROM pg_catalog.pg_class c
+	 LEFT JOIN pg_catalog.pg_class tc ON (c.reltoastrelid = tc.oid)
+	LEFT JOIN pg_catalog.pg_am am ON (c.relam = am.oid)
+	WHERE c.oid = '16386';
+freecodecamp LOG:  statement: SELECT a.attname,
+	  pg_catalog.format_type(a.atttypid, a.atttypmod),
+	  (SELECT pg_catalog.pg_get_expr(d.adbin, d.adrelid, true)
+	   FROM pg_catalog.pg_attrdef d
+	   WHERE d.adrelid = a.attrelid AND d.adnum = a.attnum AND a.atthasdef),
+	  a.attnotnull,
+	  (SELECT c.collname FROM pg_catalog.pg_collation c, pg_catalog.pg_type t
+	   WHERE c.oid = a.attcollation AND t.oid = a.atttypid AND a.attcollation <> t.typcollation) AS attcollation,
+	  a.attidentity,
+	  a.attgenerated
+	FROM pg_catalog.pg_attribute a
+	WHERE a.attrelid = '16386' AND a.attnum > 0 AND NOT a.attisdropped
+	ORDER BY a.attnum;
+freecodecamp LOG:  statement: SELECT c2.relname, i.indisprimary, i.indisunique, i.indisclustered, i.indisvalid, pg_catalog.pg_get_indexdef(i.indexrelid, 0, true),
+	  pg_catalog.pg_get_constraintdef(con.oid, true), contype, condeferrable, condeferred, i.indisreplident, c2.reltablespace
+	FROM pg_catalog.pg_class c, pg_catalog.pg_class c2, pg_catalog.pg_index i
+	  LEFT JOIN pg_catalog.pg_constraint con ON (conrelid = i.indrelid AND conindid = i.indexrelid AND contype IN ('p','u','x'))
+	WHERE c.oid = '16386' AND c.oid = i.indrelid AND i.indexrelid = c2.oid
+	ORDER BY i.indisprimary DESC, i.indisunique DESC, c2.relname;
+freecodecamp LOG:  statement: SELECT true as sametable, conname,
+	  pg_catalog.pg_get_constraintdef(r.oid, true) as condef,
+	  conrelid::pg_catalog.regclass AS ontable
+	FROM pg_catalog.pg_constraint r
+	WHERE r.conrelid = '16386' AND r.contype = 'f'
+	     AND conparentid = 0
+	ORDER BY conname
+freecodecamp LOG:  statement: SELECT conname, conrelid::pg_catalog.regclass AS ontable,
+	       pg_catalog.pg_get_constraintdef(oid, true) AS condef
+	  FROM pg_catalog.pg_constraint c
+	 WHERE confrelid IN (SELECT pg_catalog.pg_partition_ancestors('16386')
+	                     UNION ALL VALUES ('16386'::pg_catalog.regclass))
+	       AND contype = 'f' AND conparentid = 0
+	ORDER BY conname;
+freecodecamp LOG:  statement: SELECT pol.polname, pol.polpermissive,
+	  CASE WHEN pol.polroles = '{0}' THEN NULL ELSE pg_catalog.array_to_string(array(select rolname from pg_catalog.pg_roles where oid = any (pol.polroles) order by 1),',') END,
+	  pg_catalog.pg_get_expr(pol.polqual, pol.polrelid),
+	  pg_catalog.pg_get_expr(pol.polwithcheck, pol.polrelid),
+	  CASE pol.polcmd
+	    WHEN 'r' THEN 'SELECT'
+	    WHEN 'a' THEN 'INSERT'
+	    WHEN 'w' THEN 'UPDATE'
+	    WHEN 'd' THEN 'DELETE'
+	    END AS cmd
+	FROM pg_catalog.pg_policy pol
+	WHERE pol.polrelid = '16386' ORDER BY 1;
+freecodecamp LOG:  statement: SELECT oid, stxrelid::pg_catalog.regclass, stxnamespace::pg_catalog.regnamespace AS nsp, stxname,
+	  (SELECT pg_catalog.string_agg(pg_catalog.quote_ident(attname),', ')
+	   FROM pg_catalog.unnest(stxkeys) s(attnum)
+	   JOIN pg_catalog.pg_attribute a ON (stxrelid = a.attrelid AND
+	        a.attnum = s.attnum AND NOT attisdropped)) AS columns,
+	  'd' = any(stxkind) AS ndist_enabled,
+	  'f' = any(stxkind) AS deps_enabled,
+	  'm' = any(stxkind) AS mcv_enabled
+	FROM pg_catalog.pg_statistic_ext stat WHERE stxrelid = '16386'
+	ORDER BY 1;
+freecodecamp LOG:  statement: SELECT pubname
+	FROM pg_catalog.pg_publication p
+	JOIN pg_catalog.pg_publication_rel pr ON p.oid = pr.prpubid
+	WHERE pr.prrelid = '16386'
+	UNION ALL
+	SELECT pubname
+	FROM pg_catalog.pg_publication p
+	WHERE p.puballtables AND pg_catalog.pg_relation_is_publishable('16386')
+	ORDER BY 1;
+freecodecamp LOG:  statement: SELECT t.tgname, pg_catalog.pg_get_triggerdef(t.oid, true), t.tgenabled, t.tgisinternal
+	FROM pg_catalog.pg_trigger t
+	WHERE t.tgrelid = '16386' AND (NOT t.tgisinternal OR (t.tgisinternal AND t.tgenabled = 'D') 
+	    OR EXISTS (SELECT 1 FROM pg_catalog.pg_depend WHERE objid = t.oid 
+	        AND refclassid = 'pg_catalog.pg_trigger'::pg_catalog.regclass))
+	ORDER BY 1;
+freecodecamp LOG:  statement: SELECT c.oid::pg_catalog.regclass FROM pg_catalog.pg_class c, pg_catalog.pg_inherits i WHERE c.oid=i.inhparent AND i.inhrelid = '16386' AND c.relkind != 'p' ORDER BY inhseqno;
+freecodecamp LOG:  statement: SELECT c.oid::pg_catalog.regclass,       pg_catalog.pg_get_expr(c.relpartbound, c.oid),       c.relkind FROM pg_catalog.pg_class c, pg_catalog.pg_inherits i WHERE c.oid=i.inhrelid AND i.inhparent = '16386' ORDER BY pg_catalog.pg_get_expr(c.relpartbound, c.oid) = 'DEFAULT',          c.oid::pg_catalog.regclass::pg_catalog.text;
+[unknown] LOG:  connection received: host=127.0.0.1 port=43416
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT bike_id, type, size FROM bikes WHERE available=true ORDER BY bike_id;
+[unknown] LOG:  connection received: host=127.0.0.1 port=43424
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT available FROM bikes WHERE bike_id=1 AND available=true;
+[unknown] LOG:  connection received: host=127.0.0.1 port=53978
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT bike_id, type, size FROM bikes WHERE available=true ORDER BY bike_id;
+[unknown] LOG:  connection received: host=127.0.0.1 port=53980
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT available FROM bikes WHERE bike_id=10 AND available=true;
+[unknown] LOG:  connection received: host=127.0.0.1 port=57366
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT bike_id, type, size FROM bikes WHERE available=true ORDER BY bike_id;
+[unknown] LOG:  connection received: host=127.0.0.1 port=57370
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT available FROM bikes WHERE bike_id=99 AND available=true;
+freecodecamp LOG:  statement: UPDATE bikes SET available=true;
+[unknown] LOG:  connection received: host=127.0.0.1 port=52742
+postgres LOG:  connection authorized: user=postgres database=bikes
+postgres LOG:  statement: SELECT bike_id FROM bikes WHERE available=true
+postgres LOG:  statement: SELECT bike_id FROM bikes WHERE available=false
+freecodecamp LOG:  statement: SELECT c.oid,
+	  n.nspname,
+	  c.relname
+	FROM pg_catalog.pg_class c
+	     LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace
+	WHERE c.relname OPERATOR(pg_catalog.~) '^(customers)$' COLLATE pg_catalog.default
+	  AND pg_catalog.pg_table_is_visible(c.oid)
+	ORDER BY 2, 3;
+freecodecamp LOG:  statement: SELECT c.relchecks, c.relkind, c.relhasindex, c.relhasrules, c.relhastriggers, c.relrowsecurity, c.relforcerowsecurity, false AS relhasoids, c.relispartition, '', c.reltablespace, CASE WHEN c.reloftype = 0 THEN '' ELSE c.reloftype::pg_catalog.regtype::pg_catalog.text END, c.relpersistence, c.relreplident, am.amname
+	FROM pg_catalog.pg_class c
+	 LEFT JOIN pg_catalog.pg_class tc ON (c.reltoastrelid = tc.oid)
+	LEFT JOIN pg_catalog.pg_am am ON (c.relam = am.oid)
+	WHERE c.oid = '16399';
+freecodecamp LOG:  statement: SELECT a.attname,
+	  pg_catalog.format_type(a.atttypid, a.atttypmod),
+	  (SELECT pg_catalog.pg_get_expr(d.adbin, d.adrelid, true)
+	   FROM pg_catalog.pg_attrdef d
+	   WHERE d.adrelid = a.attrelid AND d.adnum = a.attnum AND a.atthasdef),
+	  a.attnotnull,
+	  (SELECT c.collname FROM pg_catalog.pg_collation c, pg_catalog.pg_type t
+	   WHERE c.oid = a.attcollation AND t.oid = a.atttypid AND a.attcollation <> t.typcollation) AS attcollation,
+	  a.attidentity,
+	  a.attgenerated
+	FROM pg_catalog.pg_attribute a
+	WHERE a.attrelid = '16399' AND a.attnum > 0 AND NOT a.attisdropped
+	ORDER BY a.attnum;
+freecodecamp LOG:  statement: SELECT c2.relname, i.indisprimary, i.indisunique, i.indisclustered, i.indisvalid, pg_catalog.pg_get_indexdef(i.indexrelid, 0, true),
+	  pg_catalog.pg_get_constraintdef(con.oid, true), contype, condeferrable, condeferred, i.indisreplident, c2.reltablespace
+	FROM pg_catalog.pg_class c, pg_catalog.pg_class c2, pg_catalog.pg_index i
+	  LEFT JOIN pg_catalog.pg_constraint con ON (conrelid = i.indrelid AND conindid = i.indexrelid AND contype IN ('p','u','x'))
+	WHERE c.oid = '16399' AND c.oid = i.indrelid AND i.indexrelid = c2.oid
+	ORDER BY i.indisprimary DESC, i.indisunique DESC, c2.relname;
+freecodecamp LOG:  statement: SELECT true as sametable, conname,
+	  pg_catalog.pg_get_constraintdef(r.oid, true) as condef,
+	  conrelid::pg_catalog.regclass AS ontable
+	FROM pg_catalog.pg_constraint r
+	WHERE r.conrelid = '16399' AND r.contype = 'f'
+	     AND conparentid = 0
+	ORDER BY conname
+freecodecamp LOG:  statement: SELECT conname, conrelid::pg_catalog.regclass AS ontable,
+	       pg_catalog.pg_get_constraintdef(oid, true) AS condef
+	  FROM pg_catalog.pg_constraint c
+	 WHERE confrelid IN (SELECT pg_catalog.pg_partition_ancestors('16399')
+	                     UNION ALL VALUES ('16399'::pg_catalog.regclass))
+	       AND contype = 'f' AND conparentid = 0
+	ORDER BY conname;
+freecodecamp LOG:  statement: SELECT pol.polname, pol.polpermissive,
+	  CASE WHEN pol.polroles = '{0}' THEN NULL ELSE pg_catalog.array_to_string(array(select rolname from pg_catalog.pg_roles where oid = any (pol.polroles) order by 1),',') END,
+	  pg_catalog.pg_get_expr(pol.polqual, pol.polrelid),
+	  pg_catalog.pg_get_expr(pol.polwithcheck, pol.polrelid),
+	  CASE pol.polcmd
+	    WHEN 'r' THEN 'SELECT'
+	    WHEN 'a' THEN 'INSERT'
+	    WHEN 'w' THEN 'UPDATE'
+	    WHEN 'd' THEN 'DELETE'
+	    END AS cmd
+	FROM pg_catalog.pg_policy pol
+	WHERE pol.polrelid = '16399' ORDER BY 1;
+freecodecamp LOG:  statement: SELECT oid, stxrelid::pg_catalog.regclass, stxnamespace::pg_catalog.regnamespace AS nsp, stxname,
+	  (SELECT pg_catalog.string_agg(pg_catalog.quote_ident(attname),', ')
+	   FROM pg_catalog.unnest(stxkeys) s(attnum)
+	   JOIN pg_catalog.pg_attribute a ON (stxrelid = a.attrelid AND
+	        a.attnum = s.attnum AND NOT attisdropped)) AS columns,
+	  'd' = any(stxkind) AS ndist_enabled,
+	  'f' = any(stxkind) AS deps_enabled,
+	  'm' = any(stxkind) AS mcv_enabled
+	FROM pg_catalog.pg_statistic_ext stat WHERE stxrelid = '16399'
+	ORDER BY 1;
+freecodecamp LOG:  statement: SELECT pubname
+	FROM pg_catalog.pg_publication p
+	JOIN pg_catalog.pg_publication_rel pr ON p.oid = pr.prpubid
+	WHERE pr.prrelid = '16399'
+	UNION ALL
+	SELECT pubname
+	FROM pg_catalog.pg_publication p
+	WHERE p.puballtables AND pg_catalog.pg_relation_is_publishable('16399')
+	ORDER BY 1;
+freecodecamp LOG:  statement: SELECT t.tgname, pg_catalog.pg_get_triggerdef(t.oid, true), t.tgenabled, t.tgisinternal
+	FROM pg_catalog.pg_trigger t
+	WHERE t.tgrelid = '16399' AND (NOT t.tgisinternal OR (t.tgisinternal AND t.tgenabled = 'D') 
+	    OR EXISTS (SELECT 1 FROM pg_catalog.pg_depend WHERE objid = t.oid 
+	        AND refclassid = 'pg_catalog.pg_trigger'::pg_catalog.regclass))
+	ORDER BY 1;
+freecodecamp LOG:  statement: SELECT c.oid::pg_catalog.regclass FROM pg_catalog.pg_class c, pg_catalog.pg_inherits i WHERE c.oid=i.inhparent AND i.inhrelid = '16399' AND c.relkind != 'p' ORDER BY inhseqno;
+freecodecamp LOG:  statement: SELECT c.oid::pg_catalog.regclass,       pg_catalog.pg_get_expr(c.relpartbound, c.oid),       c.relkind FROM pg_catalog.pg_class c, pg_catalog.pg_inherits i WHERE c.oid=i.inhrelid AND i.inhparent = '16399' ORDER BY pg_catalog.pg_get_expr(c.relpartbound, c.oid) = 'DEFAULT',          c.oid::pg_catalog.regclass::pg_catalog.text;
+[unknown] LOG:  connection received: host=127.0.0.1 port=35094
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT bike_id, type, size FROM bikes WHERE available=true ORDER BY bike_id;
+[unknown] LOG:  connection received: host=127.0.0.1 port=40830
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT available FROM bikes WHERE bike_id=1 AND available=true;
+[unknown] LOG:  connection received: host=127.0.0.1 port=40838
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT name FROM customers WHERE phone='555-5555';
+[unknown] LOG:  connection received: host=127.0.0.1 port=40846
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: INSERT INTO customers(name, phone) VALUES('Me', '555-5555');
+[unknown] LOG:  connection received: host=127.0.0.1 port=40852
+postgres LOG:  connection authorized: user=postgres database=bikes
+postgres LOG:  statement: SELECT customer_id FROM customers WHERE phone = '555-5555' AND name = 'Me'
+freecodecamp LOG:  statement: select * from customers
+	;
+freecodecamp LOG:  statement: select * from rentals;
+freecodecamp ERROR:  syntax error at or near "serom" at character 1
+freecodecamp STATEMENT:  serom bikes;
+freecodecamp LOG:  statement: select * from bikes;
+[unknown] LOG:  connection received: host=127.0.0.1 port=52494
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT bike_id, type, size FROM bikes WHERE available=true ORDER BY bike_id;
+[unknown] LOG:  connection received: host=127.0.0.1 port=52496
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT available FROM bikes WHERE bike_id=1 AND available=true;
+[unknown] LOG:  connection received: host=127.0.0.1 port=38782
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT name FROM customers WHERE phone='555-5555';
+[unknown] LOG:  connection received: host=127.0.0.1 port=38790
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT customer_id FROM customers WHERE phone='555-5555';
+[unknown] LOG:  connection received: host=127.0.0.1 port=38796
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: INSERT INTO rentals(customer_id, bike_id) VALUES('           1', '1');
+[unknown] LOG:  connection received: host=127.0.0.1 port=38802
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: UPDATE bikes SET available=false WHERE bike_id='1';
+[unknown] LOG:  connection received: host=127.0.0.1 port=38816
+postgres LOG:  connection authorized: user=postgres database=bikes
+postgres LOG:  statement: SELECT rental_id FROM customers INNER JOIN rentals USING(customer_id) WHERE phone = '555-5555' AND name = 'Me'
+freecodecamp LOG:  statement: SELECT c.oid,
+	  n.nspname,
+	  c.relname
+	FROM pg_catalog.pg_class c
+	     LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace
+	WHERE c.relname OPERATOR(pg_catalog.~) '^(rentals)$' COLLATE pg_catalog.default
+	  AND pg_catalog.pg_table_is_visible(c.oid)
+	ORDER BY 2, 3;
+freecodecamp LOG:  statement: SELECT c.relchecks, c.relkind, c.relhasindex, c.relhasrules, c.relhastriggers, c.relrowsecurity, c.relforcerowsecurity, false AS relhasoids, c.relispartition, '', c.reltablespace, CASE WHEN c.reloftype = 0 THEN '' ELSE c.reloftype::pg_catalog.regtype::pg_catalog.text END, c.relpersistence, c.relreplident, am.amname
+	FROM pg_catalog.pg_class c
+	 LEFT JOIN pg_catalog.pg_class tc ON (c.reltoastrelid = tc.oid)
+	LEFT JOIN pg_catalog.pg_am am ON (c.relam = am.oid)
+	WHERE c.oid = '16413';
+freecodecamp LOG:  statement: SELECT a.attname,
+	  pg_catalog.format_type(a.atttypid, a.atttypmod),
+	  (SELECT pg_catalog.pg_get_expr(d.adbin, d.adrelid, true)
+	   FROM pg_catalog.pg_attrdef d
+	   WHERE d.adrelid = a.attrelid AND d.adnum = a.attnum AND a.atthasdef),
+	  a.attnotnull,
+	  (SELECT c.collname FROM pg_catalog.pg_collation c, pg_catalog.pg_type t
+	   WHERE c.oid = a.attcollation AND t.oid = a.atttypid AND a.attcollation <> t.typcollation) AS attcollation,
+	  a.attidentity,
+	  a.attgenerated
+	FROM pg_catalog.pg_attribute a
+	WHERE a.attrelid = '16413' AND a.attnum > 0 AND NOT a.attisdropped
+	ORDER BY a.attnum;
+freecodecamp LOG:  statement: SELECT c2.relname, i.indisprimary, i.indisunique, i.indisclustered, i.indisvalid, pg_catalog.pg_get_indexdef(i.indexrelid, 0, true),
+	  pg_catalog.pg_get_constraintdef(con.oid, true), contype, condeferrable, condeferred, i.indisreplident, c2.reltablespace
+	FROM pg_catalog.pg_class c, pg_catalog.pg_class c2, pg_catalog.pg_index i
+	  LEFT JOIN pg_catalog.pg_constraint con ON (conrelid = i.indrelid AND conindid = i.indexrelid AND contype IN ('p','u','x'))
+	WHERE c.oid = '16413' AND c.oid = i.indrelid AND i.indexrelid = c2.oid
+	ORDER BY i.indisprimary DESC, i.indisunique DESC, c2.relname;
+freecodecamp LOG:  statement: SELECT true as sametable, conname,
+	  pg_catalog.pg_get_constraintdef(r.oid, true) as condef,
+	  conrelid::pg_catalog.regclass AS ontable
+	FROM pg_catalog.pg_constraint r
+	WHERE r.conrelid = '16413' AND r.contype = 'f'
+	     AND conparentid = 0
+	ORDER BY conname
+freecodecamp LOG:  statement: SELECT conname, conrelid::pg_catalog.regclass AS ontable,
+	       pg_catalog.pg_get_constraintdef(oid, true) AS condef
+	  FROM pg_catalog.pg_constraint c
+	 WHERE confrelid IN (SELECT pg_catalog.pg_partition_ancestors('16413')
+	                     UNION ALL VALUES ('16413'::pg_catalog.regclass))
+	       AND contype = 'f' AND conparentid = 0
+	ORDER BY conname;
+freecodecamp LOG:  statement: SELECT pol.polname, pol.polpermissive,
+	  CASE WHEN pol.polroles = '{0}' THEN NULL ELSE pg_catalog.array_to_string(array(select rolname from pg_catalog.pg_roles where oid = any (pol.polroles) order by 1),',') END,
+	  pg_catalog.pg_get_expr(pol.polqual, pol.polrelid),
+	  pg_catalog.pg_get_expr(pol.polwithcheck, pol.polrelid),
+	  CASE pol.polcmd
+	    WHEN 'r' THEN 'SELECT'
+	    WHEN 'a' THEN 'INSERT'
+	    WHEN 'w' THEN 'UPDATE'
+	    WHEN 'd' THEN 'DELETE'
+	    END AS cmd
+	FROM pg_catalog.pg_policy pol
+	WHERE pol.polrelid = '16413' ORDER BY 1;
+freecodecamp LOG:  statement: SELECT oid, stxrelid::pg_catalog.regclass, stxnamespace::pg_catalog.regnamespace AS nsp, stxname,
+	  (SELECT pg_catalog.string_agg(pg_catalog.quote_ident(attname),', ')
+	   FROM pg_catalog.unnest(stxkeys) s(attnum)
+	   JOIN pg_catalog.pg_attribute a ON (stxrelid = a.attrelid AND
+	        a.attnum = s.attnum AND NOT attisdropped)) AS columns,
+	  'd' = any(stxkind) AS ndist_enabled,
+	  'f' = any(stxkind) AS deps_enabled,
+	  'm' = any(stxkind) AS mcv_enabled
+	FROM pg_catalog.pg_statistic_ext stat WHERE stxrelid = '16413'
+	ORDER BY 1;
+freecodecamp LOG:  statement: SELECT pubname
+	FROM pg_catalog.pg_publication p
+	JOIN pg_catalog.pg_publication_rel pr ON p.oid = pr.prpubid
+	WHERE pr.prrelid = '16413'
+	UNION ALL
+	SELECT pubname
+	FROM pg_catalog.pg_publication p
+	WHERE p.puballtables AND pg_catalog.pg_relation_is_publishable('16413')
+	ORDER BY 1;
+freecodecamp LOG:  statement: SELECT t.tgname, pg_catalog.pg_get_triggerdef(t.oid, true), t.tgenabled, t.tgisinternal
+	FROM pg_catalog.pg_trigger t
+	WHERE t.tgrelid = '16413' AND (NOT t.tgisinternal OR (t.tgisinternal AND t.tgenabled = 'D') 
+	    OR EXISTS (SELECT 1 FROM pg_catalog.pg_depend WHERE objid = t.oid 
+	        AND refclassid = 'pg_catalog.pg_trigger'::pg_catalog.regclass))
+	ORDER BY 1;
+freecodecamp LOG:  statement: SELECT c.oid::pg_catalog.regclass FROM pg_catalog.pg_class c, pg_catalog.pg_inherits i WHERE c.oid=i.inhparent AND i.inhrelid = '16413' AND c.relkind != 'p' ORDER BY inhseqno;
+freecodecamp LOG:  statement: SELECT c.oid::pg_catalog.regclass,       pg_catalog.pg_get_expr(c.relpartbound, c.oid),       c.relkind FROM pg_catalog.pg_class c, pg_catalog.pg_inherits i WHERE c.oid=i.inhrelid AND i.inhparent = '16413' ORDER BY pg_catalog.pg_get_expr(c.relpartbound, c.oid) = 'DEFAULT',          c.oid::pg_catalog.regclass::pg_catalog.text;
+freecodecamp LOG:  statement: select * from rentals;
+freecodecamp LOG:  statement: select * from bikes;
+freecodecamp LOG:  statement: select * from bikes ORDER BY bike_id;
+[unknown] LOG:  connection received: host=127.0.0.1 port=49872
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT bike_id, type, size FROM bikes WHERE available=true ORDER BY bike_id;
+[unknown] LOG:  connection received: host=127.0.0.1 port=49882
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT available FROM bikes WHERE bike_id=2 AND available=true;
+[unknown] LOG:  connection received: host=127.0.0.1 port=49896
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT name FROM customers WHERE phone='555-5555';
+[unknown] LOG:  connection received: host=127.0.0.1 port=49902
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT customer_id FROM customers WHERE phone='555-5555';
+[unknown] LOG:  connection received: host=127.0.0.1 port=49908
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: INSERT INTO rentals(customer_id, bike_id) VALUES('           1', '2');
+[unknown] LOG:  connection received: host=127.0.0.1 port=49914
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: UPDATE bikes SET available=false WHERE bike_id='2';
+[unknown] LOG:  connection received: host=127.0.0.1 port=49928
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT size, type FROM bikes WHERE bike_id='2';
+[unknown] LOG:  connection received: host=127.0.0.1 port=49940
+postgres LOG:  connection authorized: user=postgres database=bikes
+postgres LOG:  statement: SELECT rental_id FROM customers INNER JOIN rentals USING(customer_id) WHERE phone = '555-5555' AND name = 'Me'
+[unknown] LOG:  connection received: host=127.0.0.1 port=41950
+postgres LOG:  connection authorized: user=postgres database=bikes
+postgres LOG:  statement: SELECT rental_id FROM customers INNER JOIN rentals USING(customer_id) WHERE phone = '555-5555' AND name = 'Me'
+[unknown] LOG:  connection received: host=127.0.0.1 port=39262
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT bike_id, type, size FROM bikes WHERE available=true ORDER BY bike_id;
+[unknown] LOG:  connection received: host=127.0.0.1 port=39268
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT available FROM bikes WHERE bike_id=3 AND available=true;
+[unknown] LOG:  connection received: host=127.0.0.1 port=39282
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT name FROM customers WHERE phone='555-5555';
+[unknown] LOG:  connection received: host=127.0.0.1 port=39294
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT customer_id FROM customers WHERE phone='555-5555';
+[unknown] LOG:  connection received: host=127.0.0.1 port=39310
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: INSERT INTO rentals(customer_id, bike_id) VALUES('           1', '3');
+[unknown] LOG:  connection received: host=127.0.0.1 port=39320
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: UPDATE bikes SET available=false WHERE bike_id='3';
+[unknown] LOG:  connection received: host=127.0.0.1 port=39328
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT size, type FROM bikes WHERE bike_id='3';
+[unknown] LOG:  connection received: host=127.0.0.1 port=39344
+postgres LOG:  connection authorized: user=postgres database=bikes
+postgres LOG:  statement: SELECT rental_id FROM customers INNER JOIN rentals USING(customer_id) WHERE phone = '555-5555' AND name = 'Me'
+[unknown] LOG:  connection received: host=127.0.0.1 port=38210
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT bike_id, type, size FROM bikes WHERE available=true ORDER BY bike_id;
+[unknown] LOG:  connection received: host=127.0.0.1 port=38222
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT available FROM bikes WHERE bike_id=4 AND available=true;
+[unknown] LOG:  connection received: host=127.0.0.1 port=45778
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT name FROM customers WHERE phone='555-5555';
+[unknown] LOG:  connection received: host=127.0.0.1 port=45794
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT customer_id FROM customers WHERE phone='555-5555';
+[unknown] LOG:  connection received: host=127.0.0.1 port=45810
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: INSERT INTO rentals(customer_id, bike_id) VALUES('           1', '4');
+[unknown] LOG:  connection received: host=127.0.0.1 port=45822
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: UPDATE bikes SET available=false WHERE bike_id='4';
+[unknown] LOG:  connection received: host=127.0.0.1 port=45832
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT size, type FROM bikes WHERE bike_id='4';
+[unknown] LOG:  connection received: host=127.0.0.1 port=45848
+postgres LOG:  connection authorized: user=postgres database=bikes
+postgres LOG:  statement: SELECT rental_id FROM customers INNER JOIN rentals USING(customer_id) WHERE phone = '555-5555' AND name = 'Me'
+[unknown] LOG:  connection received: host=127.0.0.1 port=45974
+postgres LOG:  connection authorized: user=postgres database=bikes
+postgres LOG:  statement: SELECT rental_id FROM customers INNER JOIN rentals USING(customer_id) WHERE phone = '555-5555' AND name = 'Me'
+[unknown] LOG:  connection received: host=127.0.0.1 port=48478
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT bike_id, type, size FROM bikes WHERE available=true ORDER BY bike_id;
+[unknown] LOG:  connection received: host=127.0.0.1 port=48490
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT available FROM bikes WHERE bike_id=6 AND available=true;
+[unknown] LOG:  connection received: host=127.0.0.1 port=48506
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT name FROM customers WHERE phone='555-5555';
+[unknown] LOG:  connection received: host=127.0.0.1 port=48508
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT customer_id FROM customers WHERE phone='555-5555';
+[unknown] LOG:  connection received: host=127.0.0.1 port=48518
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: INSERT INTO rentals(customer_id, bike_id) VALUES('           1', '6');
+[unknown] LOG:  connection received: host=127.0.0.1 port=48522
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: UPDATE bikes SET available=false WHERE bike_id='6';
+[unknown] LOG:  connection received: host=127.0.0.1 port=48526
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT size, type FROM bikes WHERE bike_id='6';
+[unknown] LOG:  connection received: host=127.0.0.1 port=35898
+postgres LOG:  connection authorized: user=postgres database=bikes
+postgres LOG:  statement: SELECT rental_id FROM customers INNER JOIN rentals USING(customer_id) WHERE phone = '555-5555' AND name = 'Me'
+[unknown] LOG:  connection received: host=127.0.0.1 port=55310
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT bike_id, type, size FROM bikes WHERE available=true ORDER BY bike_id;
+[unknown] LOG:  connection received: host=127.0.0.1 port=55318
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT available FROM bikes WHERE bike_id=7 AND available=true;
+[unknown] LOG:  connection received: host=127.0.0.1 port=55334
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT name FROM customers WHERE phone='000-0000';
+[unknown] LOG:  connection received: host=127.0.0.1 port=55340
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: INSERT INTO customers(name, phone) VALUES('Test', '000-0000');
+[unknown] LOG:  connection received: host=127.0.0.1 port=55356
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT customer_id FROM customers WHERE phone='000-0000';
+[unknown] LOG:  connection received: host=127.0.0.1 port=55360
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: INSERT INTO rentals(customer_id, bike_id) VALUES('           2', '7');
+[unknown] LOG:  connection received: host=127.0.0.1 port=55362
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: UPDATE bikes SET available=false WHERE bike_id='7';
+[unknown] LOG:  connection received: host=127.0.0.1 port=55374
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT size, type FROM bikes WHERE bike_id='7';
+[unknown] LOG:  connection received: host=127.0.0.1 port=38860
+postgres LOG:  connection authorized: user=postgres database=bikes
+postgres LOG:  statement: SELECT rental_id FROM customers INNER JOIN rentals USING(customer_id) WHERE phone = '000-0000' AND name = 'Test'
+[unknown] LOG:  connection received: host=127.0.0.1 port=39532
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT bike_id, type, size FROM bikes WHERE available=true ORDER BY bike_id;
+[unknown] LOG:  connection received: host=127.0.0.1 port=39534
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT available FROM bikes WHERE bike_id=8 AND available=true;
+[unknown] LOG:  connection received: host=127.0.0.1 port=39550
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT name FROM customers WHERE phone='000-0000';
+[unknown] LOG:  connection received: host=127.0.0.1 port=39552
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT customer_id FROM customers WHERE phone='000-0000';
+[unknown] LOG:  connection received: host=127.0.0.1 port=39568
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: INSERT INTO rentals(customer_id, bike_id) VALUES('           2', '8');
+[unknown] LOG:  connection received: host=127.0.0.1 port=39576
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: UPDATE bikes SET available=false WHERE bike_id='8';
+[unknown] LOG:  connection received: host=127.0.0.1 port=39588
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT size, type FROM bikes WHERE bike_id='8';
+[unknown] LOG:  connection received: host=127.0.0.1 port=39596
+postgres LOG:  connection authorized: user=postgres database=bikes
+postgres LOG:  statement: SELECT rental_id FROM customers INNER JOIN rentals USING(customer_id) WHERE phone = '000-0000' AND name = 'Test'
+freecodecamp LOG:  statement: select * from bikes ORDER BY bike_id;
+freecodecamp LOG:  statement: select * from customers;
+freecodecamp LOG:  statement: select * from rentals;
+[unknown] LOG:  connection received: host=127.0.0.1 port=54870
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT customer_id FROM customers WHERE phone='adfa';
+freecodecamp LOG:  statement: select * from bikes
+	;
+freecodecamp LOG:  statement: select * from bikes left join retals using(bike_id);
+freecodecamp ERROR:  relation "retals" does not exist at character 31
+freecodecamp STATEMENT:  select * from bikes left join retals using(bike_id);
+freecodecamp LOG:  statement: select * from bikes left join rentals using(bike_id);
+freecodecamp LOG:  statement: select * from bikes inner join rentals using(bike_id);
+freecodecamp LOG:  statement: select * from bikes inner join rentals using(bike_id) inner join customers using(customer_id);
+freecodecamp LOG:  statement: select * from bikes inner join rentals using(bike_id) inner join customers using(customer_id) where phone="555-5555" and date_returend is null;
+freecodecamp ERROR:  column "555-5555" does not exist at character 107
+freecodecamp STATEMENT:  select * from bikes inner join rentals using(bike_id) inner join customers using(customer_id) where phone="555-5555" and date_returend is null;
+freecodecamp LOG:  statement: select * from bikes inner join rentals using(bike_id) inner join customers using(customer_id) where phone='555-5555' and date_returend is null;
+freecodecamp ERROR:  column "date_returend" does not exist at character 122
+freecodecamp HINT:  Perhaps you meant to reference the column "rentals.date_returned".
+freecodecamp STATEMENT:  select * from bikes inner join rentals using(bike_id) inner join customers using(customer_id) where phone='555-5555' and date_returend is null;
+freecodecamp LOG:  statement: select * from bikes inner join rentals using(bike_id) inner join customers using(customer_id) where phone=555-5555 and date_returend is null;
+freecodecamp ERROR:  operator does not exist: character varying = integer at character 106
+freecodecamp HINT:  No operator matches the given name and argument types. You might need to add explicit type casts.
+freecodecamp STATEMENT:  select * from bikes inner join rentals using(bike_id) inner join customers using(customer_id) where phone=555-5555 and date_returend is null;
+freecodecamp LOG:  statement: select * from bikes inner join rentals using(bike_id) inner join customers using(customer_id) where phone='555-5555' and date_returend is null;
+freecodecamp ERROR:  column "date_returend" does not exist at character 122
+freecodecamp HINT:  Perhaps you meant to reference the column "rentals.date_returned".
+freecodecamp STATEMENT:  select * from bikes inner join rentals using(bike_id) inner join customers using(customer_id) where phone='555-5555' and date_returend is null;
+freecodecamp LOG:  statement: select * from bikes inner join rentals using(bike_id) inner join customers using(customer_id) where phone='555-5555' and date_returned is null;
+freecodecamp LOG:  statement: select bike_id, type, size from bikes inner join rentals using(bike_id) inner join customers using(customer_id) where phone='555-5555' and date_returned is null;
+freecodecamp LOG:  statement: select bike_id, type, size from bikes inner join rentals using(bike_id) inner join customers using(customer_id) where phone='555-5555' and date_returned is null order by bike_id;
+[unknown] LOG:  connection received: host=127.0.0.1 port=50548
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT customer_id FROM customers WHERE phone='555-5555';
+[unknown] LOG:  connection received: host=127.0.0.1 port=50550
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT bike_id, type, size FROM bikes INNER JOIN rentals USING(bike_id) INNER JOIN customers USING(customer_id) WHERE phone='555-5555' AND date_returned IS NULL ORDER BY bike_id;
+[unknown] LOG:  connection received: host=127.0.0.1 port=52602
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT customer_id FROM customers WHERE phone='555-5555';
+[unknown] LOG:  connection received: host=127.0.0.1 port=52608
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT bike_id, type, size FROM bikes INNER JOIN rentals USING(bike_id) INNER JOIN customers USING(customer_id) WHERE phone='555-5555' AND date_returned IS NULL ORDER BY bike_id;
+[unknown] LOG:  connection received: host=127.0.0.1 port=39206
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT customer_id FROM customers WHERE phone='555-5555';
+[unknown] LOG:  connection received: host=127.0.0.1 port=39216
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT bike_id, type, size FROM bikes INNER JOIN rentals USING(bike_id) INNER JOIN customers USING(customer_id) WHERE phone='555-5555' AND date_returned IS NULL ORDER BY bike_id;
+freecodecamp LOG:  statement: select bike_id from bikes inner join rentals using(bike_id) inner join customers using(customer_id)
+	;
+freecodecamp LOG:  statement: select bike_id from rentals inner join customers using(customer_id)
+	;
+freecodecamp LOG:  statement: select bike_id from rentals inner join customers using(customer_id);
+freecodecamp LOG:  statement: select * from rentals inner join customers using(customer_id);
+freecodecamp LOG:  statement: select * from rentals inner join customers using(customer_id) where phone='555-5555' and bike_id=1 and date_returned is null;
+freecodecamp LOG:  statement: select bike_id from rentals inner join customers using(customer_id) where phone='555-5555' and bike_id=1 and date_returned is null;
+freecodecamp LOG:  statement: select rental_id from rentals inner join customers using(customer_id) where phone='555-5555' and bike_id=1 and date_returned is null;
+[unknown] LOG:  connection received: host=127.0.0.1 port=42034
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT customer_id FROM customers WHERE phone='555-5555';
+[unknown] LOG:  connection received: host=127.0.0.1 port=42038
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT bike_id, type, size FROM bikes INNER JOIN rentals USING(bike_id) INNER JOIN customers USING(customer_id) WHERE phone='555-5555' AND date_returned IS NULL ORDER BY bike_id;
+[unknown] LOG:  connection received: host=127.0.0.1 port=42054
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT rental_id FROM rentals INNER JOIN customers USING(customer_id) WHERE phone='555-5555' AND bike_id='1' AND date_returned IS NULL;
+freecodecamp LOG:  statement: select * from bikes
+	;
+[unknown] LOG:  connection received: host=127.0.0.1 port=54102
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT customer_id FROM customers WHERE phone='555-5555';
+[unknown] LOG:  connection received: host=127.0.0.1 port=54118
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT bike_id, type, size FROM bikes INNER JOIN rentals USING(bike_id) INNER JOIN customers USING(customer_id) WHERE phone='555-5555' AND date_returned IS NULL ORDER BY bike_id;
+[unknown] LOG:  connection received: host=127.0.0.1 port=54122
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT rental_id FROM rentals INNER JOIN customers USING(customer_id) WHERE phone='555-5555' AND bike_id='1' AND date_returned IS NULL;
+[unknown] LOG:  connection received: host=127.0.0.1 port=54132
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: UPDATE rentals SET date_returned = NOW() WHERE rental_id =          1
+[unknown] LOG:  connection received: host=127.0.0.1 port=54146
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: UPDATE bikes SET available=true WHERE bike_id=1;
+[unknown] LOG:  connection received: host=127.0.0.1 port=54160
+postgres LOG:  connection authorized: user=postgres database=bikes
+postgres LOG:  statement: SELECT rental_id FROM customers INNER JOIN rentals USING(customer_id) WHERE phone = '555-5555' AND name = 'Me' AND date_returned IS NOT NULL
+freecodecamp LOG:  statement: select * from rentals;
+freecodecamp LOG:  statement: select * from bikes order by bike_id
+	;
+[unknown] LOG:  connection received: host=127.0.0.1 port=44388
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT customer_id FROM customers WHERE phone='555-5555';
+[unknown] LOG:  connection received: host=127.0.0.1 port=44394
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT bike_id, type, size FROM bikes INNER JOIN rentals USING(bike_id) INNER JOIN customers USING(customer_id) WHERE phone='555-5555' AND date_returned IS NULL ORDER BY bike_id;
+[unknown] LOG:  connection received: host=127.0.0.1 port=40318
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT rental_id FROM rentals INNER JOIN customers USING(customer_id) WHERE phone='555-5555' AND bike_id='2' AND date_returned IS NULL;
+[unknown] LOG:  connection received: host=127.0.0.1 port=40328
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: UPDATE rentals SET date_returned = NOW() WHERE rental_id =          2
+[unknown] LOG:  connection received: host=127.0.0.1 port=40332
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: UPDATE bikes SET available=true WHERE bike_id=2;
+[unknown] LOG:  connection received: host=127.0.0.1 port=60136
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT customer_id FROM customers WHERE phone='555-5555';
+[unknown] LOG:  connection received: host=127.0.0.1 port=60150
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT bike_id, type, size FROM bikes INNER JOIN rentals USING(bike_id) INNER JOIN customers USING(customer_id) WHERE phone='555-5555' AND date_returned IS NULL ORDER BY bike_id;
+[unknown] LOG:  connection received: host=127.0.0.1 port=60152
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT rental_id FROM rentals INNER JOIN customers USING(customer_id) WHERE phone='555-5555' AND bike_id='3' AND date_returned IS NULL;
+[unknown] LOG:  connection received: host=127.0.0.1 port=60168
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: UPDATE rentals SET date_returned = NOW() WHERE rental_id =          3
+[unknown] LOG:  connection received: host=127.0.0.1 port=60180
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: UPDATE bikes SET available=true WHERE bike_id=3;
+[unknown] LOG:  connection received: host=127.0.0.1 port=48684
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT customer_id FROM customers WHERE phone='555-5555';
+[unknown] LOG:  connection received: host=127.0.0.1 port=48688
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT bike_id, type, size FROM bikes INNER JOIN rentals USING(bike_id) INNER JOIN customers USING(customer_id) WHERE phone='555-5555' AND date_returned IS NULL ORDER BY bike_id;
+[unknown] LOG:  connection received: host=127.0.0.1 port=48690
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT rental_id FROM rentals INNER JOIN customers USING(customer_id) WHERE phone='555-5555' AND bike_id='4' AND date_returned IS NULL;
+[unknown] LOG:  connection received: host=127.0.0.1 port=48700
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: UPDATE rentals SET date_returned = NOW() WHERE rental_id =          4
+[unknown] LOG:  connection received: host=127.0.0.1 port=48702
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: UPDATE bikes SET available=true WHERE bike_id=4;
+[unknown] LOG:  connection received: host=127.0.0.1 port=39112
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT customer_id FROM customers WHERE phone='555-5555';
+[unknown] LOG:  connection received: host=127.0.0.1 port=39124
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT bike_id, type, size FROM bikes INNER JOIN rentals USING(bike_id) INNER JOIN customers USING(customer_id) WHERE phone='555-5555' AND date_returned IS NULL ORDER BY bike_id;
+[unknown] LOG:  connection received: host=127.0.0.1 port=39134
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT rental_id FROM rentals INNER JOIN customers USING(customer_id) WHERE phone='555-5555' AND bike_id='6' AND date_returned IS NULL;
+[unknown] LOG:  connection received: host=127.0.0.1 port=39150
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: UPDATE rentals SET date_returned = NOW() WHERE rental_id =          5
+[unknown] LOG:  connection received: host=127.0.0.1 port=39166
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: UPDATE bikes SET available=true WHERE bike_id=6;
+[unknown] LOG:  connection received: host=127.0.0.1 port=39168
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT customer_id FROM customers WHERE phone='555-5555';
+[unknown] LOG:  connection received: host=127.0.0.1 port=39184
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT bike_id, type, size FROM bikes INNER JOIN rentals USING(bike_id) INNER JOIN customers USING(customer_id) WHERE phone='555-5555' AND date_returned IS NULL ORDER BY bike_id;
+[unknown] LOG:  connection received: host=127.0.0.1 port=53308
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT customer_id FROM customers WHERE phone='000-0000';
+[unknown] LOG:  connection received: host=127.0.0.1 port=53316
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT bike_id, type, size FROM bikes INNER JOIN rentals USING(bike_id) INNER JOIN customers USING(customer_id) WHERE phone='000-0000' AND date_returned IS NULL ORDER BY bike_id;
+[unknown] LOG:  connection received: host=127.0.0.1 port=53330
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT rental_id FROM rentals INNER JOIN customers USING(customer_id) WHERE phone='000-0000' AND bike_id='7' AND date_returned IS NULL;
+[unknown] LOG:  connection received: host=127.0.0.1 port=53336
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: UPDATE rentals SET date_returned = NOW() WHERE rental_id =          6
+[unknown] LOG:  connection received: host=127.0.0.1 port=53344
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: UPDATE bikes SET available=true WHERE bike_id=7;
+[unknown] LOG:  connection received: host=127.0.0.1 port=53360
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT customer_id FROM customers WHERE phone='000-0000';
+[unknown] LOG:  connection received: host=127.0.0.1 port=53372
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT bike_id, type, size FROM bikes INNER JOIN rentals USING(bike_id) INNER JOIN customers USING(customer_id) WHERE phone='000-0000' AND date_returned IS NULL ORDER BY bike_id;
+[unknown] LOG:  connection received: host=127.0.0.1 port=44310
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT rental_id FROM rentals INNER JOIN customers USING(customer_id) WHERE phone='000-0000' AND bike_id='8' AND date_returned IS NULL;
+[unknown] LOG:  connection received: host=127.0.0.1 port=44320
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: UPDATE rentals SET date_returned = NOW() WHERE rental_id =          7
+[unknown] LOG:  connection received: host=127.0.0.1 port=44336
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: UPDATE bikes SET available=true WHERE bike_id=8;
+[unknown] LOG:  connection received: host=127.0.0.1 port=44340
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT customer_id FROM customers WHERE phone='000-0000';
+[unknown] LOG:  connection received: host=127.0.0.1 port=44344
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=psql SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT bike_id, type, size FROM bikes INNER JOIN rentals USING(bike_id) INNER JOIN customers USING(customer_id) WHERE phone='000-0000' AND date_returned IS NULL ORDER BY bike_id;
+freecodecamp LOG:  statement: select * from bikes order by bike_id
+	;
+[unknown] LOG:  connection received: host=127.0.0.1 port=34344
+postgres LOG:  connection authorized: user=postgres database=bikes
+postgres LOG:  statement: SELECT rental_id FROM rentals WHERE date_returned IS NULL
+postgres LOG:  statement: SELECT bike_id FROM bikes WHERE available = false
+[unknown] LOG:  connection received: host=127.0.0.1 port=38764
+freecodecamp LOG:  connection authorized: user=freecodecamp database=universe application_name=pg_dump SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp FATAL:  database "universe" does not exist
+[unknown] LOG:  connection received: host=127.0.0.1 port=53672
+freecodecamp LOG:  connection authorized: user=freecodecamp database=bikes application_name=pg_dump SSL enabled (protocol=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384, bits=256, compression=off)
+freecodecamp LOG:  statement: SELECT pg_catalog.set_config('search_path', '', false);
+freecodecamp LOG:  statement: SELECT pg_catalog.pg_is_in_recovery()
+freecodecamp LOG:  statement: SELECT pg_catalog.set_config('search_path', '', false);
+freecodecamp LOG:  statement: SET DATESTYLE = ISO
+freecodecamp LOG:  statement: SET INTERVALSTYLE = POSTGRES
+freecodecamp LOG:  statement: SET extra_float_digits TO 3
+freecodecamp LOG:  statement: SET synchronize_seqscans TO off
+freecodecamp LOG:  statement: SET statement_timeout = 0
+freecodecamp LOG:  statement: SET lock_timeout = 0
+freecodecamp LOG:  statement: SET idle_in_transaction_session_timeout = 0
+freecodecamp LOG:  statement: SET row_security = off
+freecodecamp LOG:  statement: BEGIN
+freecodecamp LOG:  statement: SET TRANSACTION ISOLATION LEVEL REPEATABLE READ, READ ONLY
+freecodecamp LOG:  statement: SELECT x.tableoid, x.oid, x.extname, n.nspname, x.extrelocatable, x.extversion, x.extconfig, x.extcondition FROM pg_extension x JOIN pg_namespace n ON n.oid = x.extnamespace
+freecodecamp LOG:  statement: SELECT classid, objid, refobjid FROM pg_depend WHERE refclassid = 'pg_extension'::regclass AND deptype = 'e' ORDER BY 3
+freecodecamp LOG:  statement: SELECT n.tableoid, n.oid, n.nspname, (SELECT rolname FROM pg_catalog.pg_roles WHERE oid = nspowner) AS rolname, (SELECT pg_catalog.array_agg(acl ORDER BY row_n) FROM (SELECT acl, row_n FROM pg_catalog.unnest(coalesce(n.nspacl,pg_catalog.acldefault('n',n.nspowner))) WITH ORDINALITY AS perm(acl,row_n) WHERE NOT EXISTS ( SELECT 1 FROM pg_catalog.unnest(coalesce(pip.initprivs,pg_catalog.acldefault('n',n.nspowner))) AS init(init_acl) WHERE acl = init_acl)) as foo) as nspacl, (SELECT pg_catalog.array_agg(acl ORDER BY row_n) FROM (SELECT acl, row_n FROM pg_catalog.unnest(coalesce(pip.initprivs,pg_catalog.acldefault('n',n.nspowner))) WITH ORDINALITY AS initp(acl,row_n) WHERE NOT EXISTS ( SELECT 1 FROM pg_catalog.unnest(coalesce(n.nspacl,pg_catalog.acldefault('n',n.nspowner))) AS permp(orig_acl) WHERE acl = orig_acl)) as foo) as rnspacl, NULL as initnspacl, NULL as initrnspacl FROM pg_namespace n LEFT JOIN pg_init_privs pip ON (n.oid = pip.objoid AND pip.classoid = 'pg_namespace'::regclass AND pip.objsubid = 0) 
+freecodecamp LOG:  statement: SELECT c.tableoid, c.oid, c.relname, (SELECT pg_catalog.array_agg(acl ORDER BY row_n) FROM (SELECT acl, row_n FROM pg_catalog.unnest(coalesce(c.relacl,pg_catalog.acldefault(CASE WHEN c.relkind = 'S' THEN 's' ELSE 'r' END::"char",c.relowner))) WITH ORDINALITY AS perm(acl,row_n) WHERE NOT EXISTS ( SELECT 1 FROM pg_catalog.unnest(coalesce(pip.initprivs,pg_catalog.acldefault(CASE WHEN c.relkind = 'S' THEN 's' ELSE 'r' END::"char",c.relowner))) AS init(init_acl) WHERE acl = init_acl)) as foo) AS relacl, (SELECT pg_catalog.array_agg(acl ORDER BY row_n) FROM (SELECT acl, row_n FROM pg_catalog.unnest(coalesce(pip.initprivs,pg_catalog.acldefault(CASE WHEN c.relkind = 'S' THEN 's' ELSE 'r' END::"char",c.relowner))) WITH ORDINALITY AS initp(acl,row_n) WHERE NOT EXISTS ( SELECT 1 FROM pg_catalog.unnest(coalesce(c.relacl,pg_catalog.acldefault(CASE WHEN c.relkind = 'S' THEN 's' ELSE 'r' END::"char",c.relowner))) AS permp(orig_acl) WHERE acl = orig_acl)) as foo) as rrelacl, NULL AS initrelacl, NULL as initrrelacl, c.relkind, c.relnamespace, (SELECT rolname FROM pg_catalog.pg_roles WHERE oid = c.relowner) AS rolname, c.relchecks, c.relhastriggers, c.relhasindex, c.relhasrules, 'f'::bool AS relhasoids, c.relrowsecurity, c.relforcerowsecurity, c.relfrozenxid, c.relminmxid, tc.oid AS toid, tc.relfrozenxid AS tfrozenxid, tc.relminmxid AS tminmxid, c.relpersistence, c.relispopulated, c.relreplident, c.relpages, am.amname, c.reloftype, d.refobjid AS owning_tab, d.refobjsubid AS owning_col, (SELECT spcname FROM pg_tablespace t WHERE t.oid = c.reltablespace) AS reltablespace, array_remove(array_remove(c.reloptions,'check_option=local'),'check_option=cascaded') AS reloptions, CASE WHEN 'check_option=local' = ANY (c.reloptions) THEN 'LOCAL'::text WHEN 'check_option=cascaded' = ANY (c.reloptions) THEN 'CASCADED'::text ELSE NULL END AS checkoption, tc.reloptions AS toast_reloptions, c.relkind = 'S' AND EXISTS (SELECT 1 FROM pg_depend WHERE classid = 'pg_class'::regclass AND objid = c.oid AND objsubid = 0 AND refclassid = 'pg_class'::regclass AND deptype = 'i') AS is_identity_sequence, EXISTS (SELECT 1 FROM pg_attribute at LEFT JOIN pg_init_privs pip ON (c.oid = pip.objoid AND pip.classoid = 'pg_class'::regclass AND pip.objsubid = at.attnum)WHERE at.attrelid = c.oid AND ((SELECT pg_catalog.array_agg(acl ORDER BY row_n) FROM (SELECT acl, row_n FROM pg_catalog.unnest(coalesce(at.attacl,pg_catalog.acldefault('c',c.relowner))) WITH ORDINALITY AS perm(acl,row_n) WHERE NOT EXISTS ( SELECT 1 FROM pg_catalog.unnest(coalesce(pip.initprivs,pg_catalog.acldefault('c',c.relowner))) AS init(init_acl) WHERE acl = init_acl)) as foo) IS NOT NULL OR (SELECT pg_catalog.array_agg(acl ORDER BY row_n) FROM (SELECT acl, row_n FROM pg_catalog.unnest(coalesce(pip.initprivs,pg_catalog.acldefault('c',c.relowner))) WITH ORDINALITY AS initp(acl,row_n) WHERE NOT EXISTS ( SELECT 1 FROM pg_catalog.unnest(coalesce(at.attacl,pg_catalog.acldefault('c',c.relowner))) AS permp(orig_acl) WHERE acl = orig_acl)) as foo) IS NOT NULL OR NULL IS NOT NULL OR NULL IS NOT NULL))AS changed_acl, c.relispartition AS ispartition FROM pg_class c LEFT JOIN pg_depend d ON (c.relkind = 'S' AND d.classid = c.tableoid AND d.objid = c.oid AND d.objsubid = 0 AND d.refclassid = c.tableoid AND d.deptype IN ('a', 'i')) LEFT JOIN pg_class tc ON (c.reltoastrelid = tc.oid AND c.relkind <> 'p') LEFT JOIN pg_am am ON (c.relam = am.oid) LEFT JOIN pg_init_privs pip ON (c.oid = pip.objoid AND pip.classoid = 'pg_class'::regclass AND pip.objsubid = 0) WHERE c.relkind in ('r', 'S', 'v', 'c', 'm', 'f', 'p') ORDER BY c.oid
+freecodecamp LOG:  statement: LOCK TABLE public.bikes IN ACCESS SHARE MODE
+freecodecamp LOG:  statement: LOCK TABLE public.customers IN ACCESS SHARE MODE
+freecodecamp LOG:  statement: LOCK TABLE public.rentals IN ACCESS SHARE MODE
+freecodecamp LOG:  statement: SELECT p.tableoid, p.oid, p.proname, p.prolang, p.pronargs, p.proargtypes, p.prorettype, (SELECT pg_catalog.array_agg(acl ORDER BY row_n) FROM (SELECT acl, row_n FROM pg_catalog.unnest(coalesce(p.proacl,pg_catalog.acldefault('f',p.proowner))) WITH ORDINALITY AS perm(acl,row_n) WHERE NOT EXISTS ( SELECT 1 FROM pg_catalog.unnest(coalesce(pip.initprivs,pg_catalog.acldefault('f',p.proowner))) AS init(init_acl) WHERE acl = init_acl)) as foo) AS proacl, (SELECT pg_catalog.array_agg(acl ORDER BY row_n) FROM (SELECT acl, row_n FROM pg_catalog.unnest(coalesce(pip.initprivs,pg_catalog.acldefault('f',p.proowner))) WITH ORDINALITY AS initp(acl,row_n) WHERE NOT EXISTS ( SELECT 1 FROM pg_catalog.unnest(coalesce(p.proacl,pg_catalog.acldefault('f',p.proowner))) AS permp(orig_acl) WHERE acl = orig_acl)) as foo) AS rproacl, NULL AS initproacl, NULL AS initrproacl, p.pronamespace, (SELECT rolname FROM pg_catalog.pg_roles WHERE oid = p.proowner) AS rolname FROM pg_proc p LEFT JOIN pg_init_privs pip ON (p.oid = pip.objoid AND pip.classoid = 'pg_proc'::regclass AND pip.objsubid = 0) WHERE p.prokind <> 'a'
+	  AND NOT EXISTS (SELECT 1 FROM pg_depend WHERE classid = 'pg_proc'::regclass AND objid = p.oid AND deptype = 'i')
+	  AND (
+	  pronamespace != (SELECT oid FROM pg_namespace WHERE nspname = 'pg_catalog')
+	  OR EXISTS (SELECT 1 FROM pg_cast
+	  WHERE pg_cast.oid > 16383 
+	  AND p.oid = pg_cast.castfunc)
+	  OR EXISTS (SELECT 1 FROM pg_transform
+	  WHERE pg_transform.oid > 16383 AND 
+	  (p.oid = pg_transform.trffromsql
+	  OR p.oid = pg_transform.trftosql))
+	  OR p.proacl IS DISTINCT FROM pip.initprivs)
+freecodecamp LOG:  statement: SELECT t.tableoid, t.oid, t.typname, t.typnamespace, (SELECT pg_catalog.array_agg(acl ORDER BY row_n) FROM (SELECT acl, row_n FROM pg_catalog.unnest(coalesce(t.typacl,pg_catalog.acldefault('T',t.typowner))) WITH ORDINALITY AS perm(acl,row_n) WHERE NOT EXISTS ( SELECT 1 FROM pg_catalog.unnest(coalesce(pip.initprivs,pg_catalog.acldefault('T',t.typowner))) AS init(init_acl) WHERE acl = init_acl)) as foo) AS typacl, (SELECT pg_catalog.array_agg(acl ORDER BY row_n) FROM (SELECT acl, row_n FROM pg_catalog.unnest(coalesce(pip.initprivs,pg_catalog.acldefault('T',t.typowner))) WITH ORDINALITY AS initp(acl,row_n) WHERE NOT EXISTS ( SELECT 1 FROM pg_catalog.unnest(coalesce(t.typacl,pg_catalog.acldefault('T',t.typowner))) AS permp(orig_acl) WHERE acl = orig_acl)) as foo) AS rtypacl, NULL AS inittypacl, NULL AS initrtypacl, (SELECT rolname FROM pg_catalog.pg_roles WHERE oid = t.typowner) AS rolname, t.typelem, t.typrelid, CASE WHEN t.typrelid = 0 THEN ' '::"char" ELSE (SELECT relkind FROM pg_class WHERE oid = t.typrelid) END AS typrelkind, t.typtype, t.typisdefined, t.typname[0] = '_' AND t.typelem != 0 AND (SELECT typarray FROM pg_type te WHERE oid = t.typelem) = t.oid AS isarray FROM pg_type t LEFT JOIN pg_init_privs pip ON (t.oid = pip.objoid AND pip.classoid = 'pg_type'::regclass AND pip.objsubid = 0) 
+freecodecamp LOG:  statement: SELECT l.tableoid, l.oid, l.lanname, l.lanpltrusted, l.lanplcallfoid, l.laninline, l.lanvalidator, (SELECT pg_catalog.array_agg(acl ORDER BY row_n) FROM (SELECT acl, row_n FROM pg_catalog.unnest(coalesce(l.lanacl,pg_catalog.acldefault('l',l.lanowner))) WITH ORDINALITY AS perm(acl,row_n) WHERE NOT EXISTS ( SELECT 1 FROM pg_catalog.unnest(coalesce(pip.initprivs,pg_catalog.acldefault('l',l.lanowner))) AS init(init_acl) WHERE acl = init_acl)) as foo) AS lanacl, (SELECT pg_catalog.array_agg(acl ORDER BY row_n) FROM (SELECT acl, row_n FROM pg_catalog.unnest(coalesce(pip.initprivs,pg_catalog.acldefault('l',l.lanowner))) WITH ORDINALITY AS initp(acl,row_n) WHERE NOT EXISTS ( SELECT 1 FROM pg_catalog.unnest(coalesce(l.lanacl,pg_catalog.acldefault('l',l.lanowner))) AS permp(orig_acl) WHERE acl = orig_acl)) as foo) AS rlanacl, NULL AS initlanacl, NULL AS initrlanacl, (SELECT rolname FROM pg_catalog.pg_roles WHERE oid = l.lanowner) AS lanowner FROM pg_language l LEFT JOIN pg_init_privs pip ON (l.oid = pip.objoid AND pip.classoid = 'pg_language'::regclass AND pip.objsubid = 0) WHERE l.lanispl ORDER BY l.oid
+freecodecamp LOG:  statement: SELECT p.tableoid, p.oid, p.proname AS aggname, p.pronamespace AS aggnamespace, p.pronargs, p.proargtypes, (SELECT rolname FROM pg_catalog.pg_roles WHERE oid = p.proowner) AS rolname, (SELECT pg_catalog.array_agg(acl ORDER BY row_n) FROM (SELECT acl, row_n FROM pg_catalog.unnest(coalesce(p.proacl,pg_catalog.acldefault('f',p.proowner))) WITH ORDINALITY AS perm(acl,row_n) WHERE NOT EXISTS ( SELECT 1 FROM pg_catalog.unnest(coalesce(pip.initprivs,pg_catalog.acldefault('f',p.proowner))) AS init(init_acl) WHERE acl = init_acl)) as foo) AS aggacl, (SELECT pg_catalog.array_agg(acl ORDER BY row_n) FROM (SELECT acl, row_n FROM pg_catalog.unnest(coalesce(pip.initprivs,pg_catalog.acldefault('f',p.proowner))) WITH ORDINALITY AS initp(acl,row_n) WHERE NOT EXISTS ( SELECT 1 FROM pg_catalog.unnest(coalesce(p.proacl,pg_catalog.acldefault('f',p.proowner))) AS permp(orig_acl) WHERE acl = orig_acl)) as foo) AS raggacl, NULL AS initaggacl, NULL AS initraggacl FROM pg_proc p LEFT JOIN pg_init_privs pip ON (p.oid = pip.objoid AND pip.classoid = 'pg_proc'::regclass AND pip.objsubid = 0) WHERE p.prokind = 'a' AND (p.pronamespace != (SELECT oid FROM pg_namespace WHERE nspname = 'pg_catalog') OR p.proacl IS DISTINCT FROM pip.initprivs)
+freecodecamp LOG:  statement: SELECT tableoid, oid, oprname, oprnamespace, (SELECT rolname FROM pg_catalog.pg_roles WHERE oid = oprowner) AS rolname, oprkind, oprcode::oid AS oprcode FROM pg_operator
+freecodecamp LOG:  statement: SELECT tableoid, oid, amname, amtype, amhandler::pg_catalog.regproc AS amhandler FROM pg_am
+freecodecamp LOG:  statement: SELECT tableoid, oid, opcname, opcnamespace, (SELECT rolname FROM pg_catalog.pg_roles WHERE oid = opcowner) AS rolname FROM pg_opclass
+freecodecamp LOG:  statement: SELECT tableoid, oid, opfname, opfnamespace, (SELECT rolname FROM pg_catalog.pg_roles WHERE oid = opfowner) AS rolname FROM pg_opfamily
+freecodecamp LOG:  statement: SELECT tableoid, oid, prsname, prsnamespace, prsstart::oid, prstoken::oid, prsend::oid, prsheadline::oid, prslextype::oid FROM pg_ts_parser
+freecodecamp LOG:  statement: SELECT tableoid, oid, tmplname, tmplnamespace, tmplinit::oid, tmpllexize::oid FROM pg_ts_template
+freecodecamp LOG:  statement: SELECT tableoid, oid, dictname, dictnamespace, (SELECT rolname FROM pg_catalog.pg_roles WHERE oid = dictowner) AS rolname, dicttemplate, dictinitoption FROM pg_ts_dict
+freecodecamp LOG:  statement: SELECT tableoid, oid, cfgname, cfgnamespace, (SELECT rolname FROM pg_catalog.pg_roles WHERE oid = cfgowner) AS rolname, cfgparser FROM pg_ts_config
+freecodecamp LOG:  statement: SELECT f.tableoid, f.oid, f.fdwname, (SELECT rolname FROM pg_catalog.pg_roles WHERE oid = f.fdwowner) AS rolname, f.fdwhandler::pg_catalog.regproc, f.fdwvalidator::pg_catalog.regproc, (SELECT pg_catalog.array_agg(acl ORDER BY row_n) FROM (SELECT acl, row_n FROM pg_catalog.unnest(coalesce(f.fdwacl,pg_catalog.acldefault('F',f.fdwowner))) WITH ORDINALITY AS perm(acl,row_n) WHERE NOT EXISTS ( SELECT 1 FROM pg_catalog.unnest(coalesce(pip.initprivs,pg_catalog.acldefault('F',f.fdwowner))) AS init(init_acl) WHERE acl = init_acl)) as foo) AS fdwacl, (SELECT pg_catalog.array_agg(acl ORDER BY row_n) FROM (SELECT acl, row_n FROM pg_catalog.unnest(coalesce(pip.initprivs,pg_catalog.acldefault('F',f.fdwowner))) WITH ORDINALITY AS initp(acl,row_n) WHERE NOT EXISTS ( SELECT 1 FROM pg_catalog.unnest(coalesce(f.fdwacl,pg_catalog.acldefault('F',f.fdwowner))) AS permp(orig_acl) WHERE acl = orig_acl)) as foo) AS rfdwacl, NULL AS initfdwacl, NULL AS initrfdwacl, array_to_string(ARRAY(SELECT quote_ident(option_name) || ' ' || quote_literal(option_value) FROM pg_options_to_table(f.fdwoptions) ORDER BY option_name), E',
+	    ') AS fdwoptions FROM pg_foreign_data_wrapper f LEFT JOIN pg_init_privs pip ON (f.oid = pip.objoid AND pip.classoid = 'pg_foreign_data_wrapper'::regclass AND pip.objsubid = 0) 
+freecodecamp LOG:  statement: SELECT f.tableoid, f.oid, f.srvname, (SELECT rolname FROM pg_catalog.pg_roles WHERE oid = f.srvowner) AS rolname, f.srvfdw, f.srvtype, f.srvversion, (SELECT pg_catalog.array_agg(acl ORDER BY row_n) FROM (SELECT acl, row_n FROM pg_catalog.unnest(coalesce(f.srvacl,pg_catalog.acldefault('S',f.srvowner))) WITH ORDINALITY AS perm(acl,row_n) WHERE NOT EXISTS ( SELECT 1 FROM pg_catalog.unnest(coalesce(pip.initprivs,pg_catalog.acldefault('S',f.srvowner))) AS init(init_acl) WHERE acl = init_acl)) as foo) AS srvacl, (SELECT pg_catalog.array_agg(acl ORDER BY row_n) FROM (SELECT acl, row_n FROM pg_catalog.unnest(coalesce(pip.initprivs,pg_catalog.acldefault('S',f.srvowner))) WITH ORDINALITY AS initp(acl,row_n) WHERE NOT EXISTS ( SELECT 1 FROM pg_catalog.unnest(coalesce(f.srvacl,pg_catalog.acldefault('S',f.srvowner))) AS permp(orig_acl) WHERE acl = orig_acl)) as foo) AS rsrvacl, NULL AS initsrvacl, NULL AS initrsrvacl, array_to_string(ARRAY(SELECT quote_ident(option_name) || ' ' || quote_literal(option_value) FROM pg_options_to_table(f.srvoptions) ORDER BY option_name), E',
+	    ') AS srvoptions FROM pg_foreign_server f LEFT JOIN pg_init_privs pip ON (f.oid = pip.objoid AND pip.classoid = 'pg_foreign_server'::regclass AND pip.objsubid = 0) 
+freecodecamp LOG:  statement: SELECT d.oid, d.tableoid, (SELECT rolname FROM pg_catalog.pg_roles WHERE oid = d.defaclrole) AS defaclrole, d.defaclnamespace, d.defaclobjtype, (SELECT pg_catalog.array_agg(acl ORDER BY row_n) FROM (SELECT acl, row_n FROM pg_catalog.unnest(coalesce(defaclacl,pg_catalog.acldefault(CASE WHEN defaclnamespace = 0 THEN	  CASE WHEN defaclobjtype = 'S' THEN 's'::"char"	  ELSE defaclobjtype END ELSE NULL END,defaclrole))) WITH ORDINALITY AS perm(acl,row_n) WHERE NOT EXISTS ( SELECT 1 FROM pg_catalog.unnest(coalesce(pip.initprivs,pg_catalog.acldefault(CASE WHEN defaclnamespace = 0 THEN	  CASE WHEN defaclobjtype = 'S' THEN 's'::"char"	  ELSE defaclobjtype END ELSE NULL END,defaclrole))) AS init(init_acl) WHERE acl = init_acl)) as foo) AS defaclacl, (SELECT pg_catalog.array_agg(acl ORDER BY row_n) FROM (SELECT acl, row_n FROM pg_catalog.unnest(coalesce(pip.initprivs,pg_catalog.acldefault(CASE WHEN defaclnamespace = 0 THEN	  CASE WHEN defaclobjtype = 'S' THEN 's'::"char"	  ELSE defaclobjtype END ELSE NULL END,defaclrole))) WITH ORDINALITY AS initp(acl,row_n) WHERE NOT EXISTS ( SELECT 1 FROM pg_catalog.unnest(coalesce(defaclacl,pg_catalog.acldefault(CASE WHEN defaclnamespace = 0 THEN	  CASE WHEN defaclobjtype = 'S' THEN 's'::"char"	  ELSE defaclobjtype END ELSE NULL END,defaclrole))) AS permp(orig_acl) WHERE acl = orig_acl)) as foo) AS rdefaclacl, NULL AS initdefaclacl, NULL AS initrdefaclacl FROM pg_default_acl d LEFT JOIN pg_init_privs pip ON (d.oid = pip.objoid AND pip.classoid = 'pg_default_acl'::regclass AND pip.objsubid = 0) 
+freecodecamp LOG:  statement: SELECT tableoid, oid, collname, collnamespace, (SELECT rolname FROM pg_catalog.pg_roles WHERE oid = collowner) AS rolname FROM pg_collation
+freecodecamp LOG:  statement: SELECT tableoid, oid, conname, connamespace, (SELECT rolname FROM pg_catalog.pg_roles WHERE oid = conowner) AS rolname FROM pg_conversion
+freecodecamp LOG:  statement: SELECT tableoid, oid, castsource, casttarget, castfunc, castcontext, castmethod FROM pg_cast ORDER BY 3,4
+freecodecamp LOG:  statement: SELECT tableoid, oid, trftype, trflang, trffromsql::oid, trftosql::oid FROM pg_transform ORDER BY 3,4
+freecodecamp LOG:  statement: SELECT inhrelid, inhparent FROM pg_inherits
+freecodecamp LOG:  statement: SELECT e.tableoid, e.oid, evtname, evtenabled, evtevent, (SELECT rolname FROM pg_catalog.pg_roles WHERE oid = evtowner) AS evtowner, array_to_string(array(select quote_literal(x)  from unnest(evttags) as t(x)), ', ') as evttags, e.evtfoid::regproc as evtfname FROM pg_event_trigger e ORDER BY e.oid
+freecodecamp LOG:  statement: SELECT conrelid, confrelid FROM pg_constraint JOIN pg_depend ON (objid = confrelid) WHERE contype = 'f' AND refclassid = 'pg_extension'::regclass AND classid = 'pg_class'::regclass;
+freecodecamp LOG:  statement: SELECT
+	a.attnum,
+	a.attname,
+	a.atttypmod,
+	a.attstattarget,
+	a.attstorage,
+	t.typstorage,
+	a.attnotnull,
+	a.atthasdef,
+	a.attisdropped,
+	a.attlen,
+	a.attalign,
+	a.attislocal,
+	pg_catalog.format_type(t.oid, a.atttypmod) AS atttypname,
+	a.attgenerated,
+	CASE WHEN a.atthasmissing AND NOT a.attisdropped THEN a.attmissingval ELSE null END AS attmissingval,
+	a.attidentity,
+	pg_catalog.array_to_string(ARRAY(SELECT pg_catalog.quote_ident(option_name) || ' ' || pg_catalog.quote_literal(option_value) FROM pg_catalog.pg_options_to_table(attfdwoptions) ORDER BY option_name), E',
+	    ') AS attfdwoptions,
+	CASE WHEN a.attcollation <> t.typcollation THEN a.attcollation ELSE 0 END AS attcollation,
+	array_to_string(a.attoptions, ', ') AS attoptions
+	FROM pg_catalog.pg_attribute a LEFT JOIN pg_catalog.pg_type t ON a.atttypid = t.oid
+	WHERE a.attrelid = '16386'::pg_catalog.oid AND a.attnum > 0::pg_catalog.int2
+	ORDER BY a.attnum
+freecodecamp LOG:  statement: SELECT tableoid, oid, adnum, pg_catalog.pg_get_expr(adbin, adrelid) AS adsrc FROM pg_catalog.pg_attrdef WHERE adrelid = '16386'::pg_catalog.oid
+freecodecamp LOG:  statement: SELECT
+	a.attnum,
+	a.attname,
+	a.atttypmod,
+	a.attstattarget,
+	a.attstorage,
+	t.typstorage,
+	a.attnotnull,
+	a.atthasdef,
+	a.attisdropped,
+	a.attlen,
+	a.attalign,
+	a.attislocal,
+	pg_catalog.format_type(t.oid, a.atttypmod) AS atttypname,
+	a.attgenerated,
+	CASE WHEN a.atthasmissing AND NOT a.attisdropped THEN a.attmissingval ELSE null END AS attmissingval,
+	a.attidentity,
+	pg_catalog.array_to_string(ARRAY(SELECT pg_catalog.quote_ident(option_name) || ' ' || pg_catalog.quote_literal(option_value) FROM pg_catalog.pg_options_to_table(attfdwoptions) ORDER BY option_name), E',
+	    ') AS attfdwoptions,
+	CASE WHEN a.attcollation <> t.typcollation THEN a.attcollation ELSE 0 END AS attcollation,
+	array_to_string(a.attoptions, ', ') AS attoptions
+	FROM pg_catalog.pg_attribute a LEFT JOIN pg_catalog.pg_type t ON a.atttypid = t.oid
+	WHERE a.attrelid = '16399'::pg_catalog.oid AND a.attnum > 0::pg_catalog.int2
+	ORDER BY a.attnum
+freecodecamp LOG:  statement: SELECT tableoid, oid, adnum, pg_catalog.pg_get_expr(adbin, adrelid) AS adsrc FROM pg_catalog.pg_attrdef WHERE adrelid = '16399'::pg_catalog.oid
+freecodecamp LOG:  statement: SELECT
+	a.attnum,
+	a.attname,
+	a.atttypmod,
+	a.attstattarget,
+	a.attstorage,
+	t.typstorage,
+	a.attnotnull,
+	a.atthasdef,
+	a.attisdropped,
+	a.attlen,
+	a.attalign,
+	a.attislocal,
+	pg_catalog.format_type(t.oid, a.atttypmod) AS atttypname,
+	a.attgenerated,
+	CASE WHEN a.atthasmissing AND NOT a.attisdropped THEN a.attmissingval ELSE null END AS attmissingval,
+	a.attidentity,
+	pg_catalog.array_to_string(ARRAY(SELECT pg_catalog.quote_ident(option_name) || ' ' || pg_catalog.quote_literal(option_value) FROM pg_catalog.pg_options_to_table(attfdwoptions) ORDER BY option_name), E',
+	    ') AS attfdwoptions,
+	CASE WHEN a.attcollation <> t.typcollation THEN a.attcollation ELSE 0 END AS attcollation,
+	array_to_string(a.attoptions, ', ') AS attoptions
+	FROM pg_catalog.pg_attribute a LEFT JOIN pg_catalog.pg_type t ON a.atttypid = t.oid
+	WHERE a.attrelid = '16413'::pg_catalog.oid AND a.attnum > 0::pg_catalog.int2
+	ORDER BY a.attnum
+freecodecamp LOG:  statement: SELECT tableoid, oid, adnum, pg_catalog.pg_get_expr(adbin, adrelid) AS adsrc FROM pg_catalog.pg_attrdef WHERE adrelid = '16413'::pg_catalog.oid
+freecodecamp LOG:  statement: SELECT partrelid FROM pg_partitioned_table WHERE
+	(SELECT c.oid FROM pg_opclass c JOIN pg_am a ON c.opcmethod = a.oid
+	WHERE opcname = 'enum_ops' AND opcnamespace = 'pg_catalog'::regnamespace AND amname = 'hash') = ANY(partclass)
+freecodecamp LOG:  statement: SELECT t.tableoid, t.oid, t.relname AS indexname, inh.inhparent AS parentidx, pg_catalog.pg_get_indexdef(i.indexrelid) AS indexdef, i.indnkeyatts AS indnkeyatts, i.indnatts AS indnatts, i.indkey, i.indisclustered, i.indisreplident, c.contype, c.conname, c.condeferrable, c.condeferred, c.tableoid AS contableoid, c.oid AS conoid, pg_catalog.pg_get_constraintdef(c.oid, false) AS condef, (SELECT spcname FROM pg_catalog.pg_tablespace s WHERE s.oid = t.reltablespace) AS tablespace, t.reloptions AS indreloptions, (SELECT pg_catalog.array_agg(attnum ORDER BY attnum)   FROM pg_catalog.pg_attribute   WHERE attrelid = i.indexrelid AND     attstattarget >= 0) AS indstatcols,(SELECT pg_catalog.array_agg(attstattarget ORDER BY attnum)   FROM pg_catalog.pg_attribute   WHERE attrelid = i.indexrelid AND     attstattarget >= 0) AS indstatvals FROM pg_catalog.pg_index i JOIN pg_catalog.pg_class t ON (t.oid = i.indexrelid) JOIN pg_catalog.pg_class t2 ON (t2.oid = i.indrelid) LEFT JOIN pg_catalog.pg_constraint c ON (i.indrelid = c.conrelid AND i.indexrelid = c.conindid AND c.contype IN ('p','u','x')) LEFT JOIN pg_catalog.pg_inherits inh ON (inh.inhrelid = indexrelid) WHERE i.indrelid = '16386'::pg_catalog.oid AND (i.indisvalid OR t2.relkind = 'p') AND i.indisready ORDER BY indexname
+freecodecamp LOG:  statement: SELECT t.tableoid, t.oid, t.relname AS indexname, inh.inhparent AS parentidx, pg_catalog.pg_get_indexdef(i.indexrelid) AS indexdef, i.indnkeyatts AS indnkeyatts, i.indnatts AS indnatts, i.indkey, i.indisclustered, i.indisreplident, c.contype, c.conname, c.condeferrable, c.condeferred, c.tableoid AS contableoid, c.oid AS conoid, pg_catalog.pg_get_constraintdef(c.oid, false) AS condef, (SELECT spcname FROM pg_catalog.pg_tablespace s WHERE s.oid = t.reltablespace) AS tablespace, t.reloptions AS indreloptions, (SELECT pg_catalog.array_agg(attnum ORDER BY attnum)   FROM pg_catalog.pg_attribute   WHERE attrelid = i.indexrelid AND     attstattarget >= 0) AS indstatcols,(SELECT pg_catalog.array_agg(attstattarget ORDER BY attnum)   FROM pg_catalog.pg_attribute   WHERE attrelid = i.indexrelid AND     attstattarget >= 0) AS indstatvals FROM pg_catalog.pg_index i JOIN pg_catalog.pg_class t ON (t.oid = i.indexrelid) JOIN pg_catalog.pg_class t2 ON (t2.oid = i.indrelid) LEFT JOIN pg_catalog.pg_constraint c ON (i.indrelid = c.conrelid AND i.indexrelid = c.conindid AND c.contype IN ('p','u','x')) LEFT JOIN pg_catalog.pg_inherits inh ON (inh.inhrelid = indexrelid) WHERE i.indrelid = '16399'::pg_catalog.oid AND (i.indisvalid OR t2.relkind = 'p') AND i.indisready ORDER BY indexname
+freecodecamp LOG:  statement: SELECT t.tableoid, t.oid, t.relname AS indexname, inh.inhparent AS parentidx, pg_catalog.pg_get_indexdef(i.indexrelid) AS indexdef, i.indnkeyatts AS indnkeyatts, i.indnatts AS indnatts, i.indkey, i.indisclustered, i.indisreplident, c.contype, c.conname, c.condeferrable, c.condeferred, c.tableoid AS contableoid, c.oid AS conoid, pg_catalog.pg_get_constraintdef(c.oid, false) AS condef, (SELECT spcname FROM pg_catalog.pg_tablespace s WHERE s.oid = t.reltablespace) AS tablespace, t.reloptions AS indreloptions, (SELECT pg_catalog.array_agg(attnum ORDER BY attnum)   FROM pg_catalog.pg_attribute   WHERE attrelid = i.indexrelid AND     attstattarget >= 0) AS indstatcols,(SELECT pg_catalog.array_agg(attstattarget ORDER BY attnum)   FROM pg_catalog.pg_attribute   WHERE attrelid = i.indexrelid AND     attstattarget >= 0) AS indstatvals FROM pg_catalog.pg_index i JOIN pg_catalog.pg_class t ON (t.oid = i.indexrelid) JOIN pg_catalog.pg_class t2 ON (t2.oid = i.indrelid) LEFT JOIN pg_catalog.pg_constraint c ON (i.indrelid = c.conrelid AND i.indexrelid = c.conindid AND c.contype IN ('p','u','x')) LEFT JOIN pg_catalog.pg_inherits inh ON (inh.inhrelid = indexrelid) WHERE i.indrelid = '16413'::pg_catalog.oid AND (i.indisvalid OR t2.relkind = 'p') AND i.indisready ORDER BY indexname
+freecodecamp LOG:  statement: SELECT tableoid, oid, stxname, stxnamespace, (SELECT rolname FROM pg_catalog.pg_roles WHERE oid = stxowner) AS rolname FROM pg_catalog.pg_statistic_ext
+freecodecamp LOG:  statement: SELECT tableoid, oid, conname, confrelid, conindid, pg_catalog.pg_get_constraintdef(oid) AS condef FROM pg_catalog.pg_constraint WHERE conrelid = '16386'::pg_catalog.oid AND conparentid = 0 AND contype = 'f'
+freecodecamp LOG:  statement: SELECT tableoid, oid, conname, confrelid, conindid, pg_catalog.pg_get_constraintdef(oid) AS condef FROM pg_catalog.pg_constraint WHERE conrelid = '16399'::pg_catalog.oid AND conparentid = 0 AND contype = 'f'
+freecodecamp LOG:  statement: SELECT tableoid, oid, conname, confrelid, conindid, pg_catalog.pg_get_constraintdef(oid) AS condef FROM pg_catalog.pg_constraint WHERE conrelid = '16413'::pg_catalog.oid AND conparentid = 0 AND contype = 'f'
+freecodecamp LOG:  statement: SELECT t.tgname, t.tgfoid::pg_catalog.regproc AS tgfname, pg_catalog.pg_get_triggerdef(t.oid, false) AS tgdef, t.tgenabled, t.tableoid, t.oid, t.tgisinternal FROM pg_catalog.pg_trigger t LEFT JOIN pg_catalog.pg_depend AS d ON  d.classid = 'pg_catalog.pg_trigger'::pg_catalog.regclass AND  d.refclassid = 'pg_catalog.pg_trigger'::pg_catalog.regclass AND  d.objid = t.oid LEFT JOIN pg_catalog.pg_trigger AS pt ON pt.oid = refobjid WHERE t.tgrelid = '16386'::pg_catalog.oid AND (NOT t.tgisinternal)
+freecodecamp LOG:  statement: SELECT t.tgname, t.tgfoid::pg_catalog.regproc AS tgfname, pg_catalog.pg_get_triggerdef(t.oid, false) AS tgdef, t.tgenabled, t.tableoid, t.oid, t.tgisinternal FROM pg_catalog.pg_trigger t LEFT JOIN pg_catalog.pg_depend AS d ON  d.classid = 'pg_catalog.pg_trigger'::pg_catalog.regclass AND  d.refclassid = 'pg_catalog.pg_trigger'::pg_catalog.regclass AND  d.objid = t.oid LEFT JOIN pg_catalog.pg_trigger AS pt ON pt.oid = refobjid WHERE t.tgrelid = '16399'::pg_catalog.oid AND (NOT t.tgisinternal)
+freecodecamp LOG:  statement: SELECT t.tgname, t.tgfoid::pg_catalog.regproc AS tgfname, pg_catalog.pg_get_triggerdef(t.oid, false) AS tgdef, t.tgenabled, t.tableoid, t.oid, t.tgisinternal FROM pg_catalog.pg_trigger t LEFT JOIN pg_catalog.pg_depend AS d ON  d.classid = 'pg_catalog.pg_trigger'::pg_catalog.regclass AND  d.refclassid = 'pg_catalog.pg_trigger'::pg_catalog.regclass AND  d.objid = t.oid LEFT JOIN pg_catalog.pg_trigger AS pt ON pt.oid = refobjid WHERE t.tgrelid = '16413'::pg_catalog.oid AND (NOT t.tgisinternal)
+freecodecamp LOG:  statement: SELECT tableoid, oid, rulename, ev_class AS ruletable, ev_type, is_instead, ev_enabled FROM pg_rewrite ORDER BY oid
+freecodecamp LOG:  statement: SELECT pol.oid, pol.tableoid, pol.polrelid, pol.polname, pol.polcmd, pol.polpermissive, CASE WHEN pol.polroles = '{0}' THEN NULL ELSE    pg_catalog.array_to_string(ARRAY(SELECT pg_catalog.quote_ident(rolname) from pg_catalog.pg_roles WHERE oid = ANY(pol.polroles)), ', ') END AS polroles, pg_catalog.pg_get_expr(pol.polqual, pol.polrelid) AS polqual, pg_catalog.pg_get_expr(pol.polwithcheck, pol.polrelid) AS polwithcheck FROM unnest('{16386,16399,16413}'::pg_catalog.oid[]) AS src(tbloid)
+	JOIN pg_catalog.pg_policy pol ON (src.tbloid = pol.polrelid)
+freecodecamp LOG:  statement: SELECT p.tableoid, p.oid, p.pubname, (SELECT rolname FROM pg_catalog.pg_roles WHERE oid = p.pubowner) AS rolname, p.puballtables, p.pubinsert, p.pubupdate, p.pubdelete, p.pubtruncate FROM pg_publication p
+freecodecamp LOG:  statement: SELECT tableoid, oid, prpubid, prrelid FROM pg_catalog.pg_publication_rel
+freecodecamp LOG:  statement: SELECT count(*) FROM pg_subscription WHERE subdbid = (SELECT oid FROM pg_database                 WHERE datname = current_database())
+freecodecamp LOG:  statement: WITH RECURSIVE w AS ( SELECT d1.objid, d2.refobjid, c2.relkind AS refrelkind FROM pg_depend d1 JOIN pg_class c1 ON c1.oid = d1.objid AND c1.relkind = 'm' JOIN pg_rewrite r1 ON r1.ev_class = d1.objid JOIN pg_depend d2 ON d2.classid = 'pg_rewrite'::regclass AND d2.objid = r1.oid AND d2.refobjid <> d1.objid JOIN pg_class c2 ON c2.oid = d2.refobjid AND c2.relkind IN ('m','v') WHERE d1.classid = 'pg_class'::regclass UNION SELECT w.objid, d3.refobjid, c3.relkind FROM w JOIN pg_rewrite r3 ON r3.ev_class = w.refobjid JOIN pg_depend d3 ON d3.classid = 'pg_rewrite'::regclass AND d3.objid = r3.oid AND d3.refobjid <> w.refobjid JOIN pg_class c3 ON c3.oid = d3.refobjid AND c3.relkind IN ('m','v') ) SELECT 'pg_class'::regclass::oid AS classid, objid, refobjid FROM w WHERE refrelkind = 'm'
+freecodecamp LOG:  statement: SELECT l.oid, (SELECT rolname FROM pg_catalog.pg_roles WHERE oid = l.lomowner) AS rolname, (SELECT pg_catalog.array_agg(acl ORDER BY row_n) FROM (SELECT acl, row_n FROM pg_catalog.unnest(coalesce(l.lomacl,pg_catalog.acldefault('L',l.lomowner))) WITH ORDINALITY AS perm(acl,row_n) WHERE NOT EXISTS ( SELECT 1 FROM pg_catalog.unnest(coalesce(pip.initprivs,pg_catalog.acldefault('L',l.lomowner))) AS init(init_acl) WHERE acl = init_acl)) as foo) AS lomacl, (SELECT pg_catalog.array_agg(acl ORDER BY row_n) FROM (SELECT acl, row_n FROM pg_catalog.unnest(coalesce(pip.initprivs,pg_catalog.acldefault('L',l.lomowner))) WITH ORDINALITY AS initp(acl,row_n) WHERE NOT EXISTS ( SELECT 1 FROM pg_catalog.unnest(coalesce(l.lomacl,pg_catalog.acldefault('L',l.lomowner))) AS permp(orig_acl) WHERE acl = orig_acl)) as foo) AS rlomacl, NULL AS initlomacl, NULL AS initrlomacl FROM pg_largeobject_metadata l LEFT JOIN pg_init_privs pip ON (l.oid = pip.objoid AND pip.classoid = 'pg_largeobject'::regclass AND pip.objsubid = 0) 
+freecodecamp LOG:  statement: SELECT classid, objid, refclassid, refobjid, deptype FROM pg_depend WHERE deptype != 'p' AND deptype != 'e'
+	UNION ALL
+	SELECT 'pg_opfamily'::regclass AS classid, amopfamily AS objid, refclassid, refobjid, deptype FROM pg_depend d, pg_amop o WHERE deptype NOT IN ('p', 'e', 'i') AND classid = 'pg_amop'::regclass AND objid = o.oid AND NOT (refclassid = 'pg_opfamily'::regclass AND amopfamily = refobjid)
+	UNION ALL
+	SELECT 'pg_opfamily'::regclass AS classid, amprocfamily AS objid, refclassid, refobjid, deptype FROM pg_depend d, pg_amproc p WHERE deptype NOT IN ('p', 'e', 'i') AND classid = 'pg_amproc'::regclass AND objid = p.oid AND NOT (refclassid = 'pg_opfamily'::regclass AND amprocfamily = refobjid)
+	ORDER BY 1,2
+freecodecamp LOG:  statement: SELECT pg_catalog.current_schemas(false)
+freecodecamp LOG:  statement: SELECT tableoid, oid, datname, (SELECT rolname FROM pg_catalog.pg_roles WHERE oid = datdba) AS dba, pg_encoding_to_char(encoding) AS encoding, datcollate, datctype, datfrozenxid, datminmxid, (SELECT array_agg(acl ORDER BY row_n) FROM   (SELECT acl, row_n FROM      unnest(coalesce(datacl,acldefault('d',datdba)))      WITH ORDINALITY AS perm(acl,row_n)    WHERE NOT EXISTS (      SELECT 1      FROM unnest(acldefault('d',datdba))        AS init(init_acl)      WHERE acl = init_acl)) AS datacls)  AS datacl, (SELECT array_agg(acl ORDER BY row_n) FROM   (SELECT acl, row_n FROM      unnest(acldefault('d',datdba))      WITH ORDINALITY AS initp(acl,row_n)    WHERE NOT EXISTS (      SELECT 1      FROM unnest(coalesce(datacl,acldefault('d',datdba)))        AS permp(orig_acl)      WHERE acl = orig_acl)) AS rdatacls)  AS rdatacl, datistemplate, datconnlimit, (SELECT spcname FROM pg_tablespace t WHERE t.oid = dattablespace) AS tablespace, shobj_description(oid, 'pg_database') AS description FROM pg_database WHERE datname = current_database()
+freecodecamp LOG:  statement: SELECT provider, label FROM pg_catalog.pg_shseclabel WHERE classoid = 'pg_catalog.pg_database'::pg_catalog.regclass AND objoid = '16385'
+freecodecamp LOG:  statement: SELECT setconfig[1] FROM pg_db_role_setting WHERE setrole = 0 AND setdatabase = '16385'::oid
+freecodecamp LOG:  statement: SELECT rolname, unnest(setconfig) FROM pg_db_role_setting s, pg_roles r WHERE setrole = r.oid AND setdatabase = '16385'::oid
+freecodecamp LOG:  statement: SELECT description, classoid, objoid, objsubid FROM pg_catalog.pg_description ORDER BY classoid, objoid, objsubid
+freecodecamp LOG:  statement: SELECT label, provider, classoid, objoid, objsubid FROM pg_catalog.pg_seclabel ORDER BY classoid, objoid, objsubid
+freecodecamp LOG:  statement: SELECT format_type(seqtypid, NULL), seqstart, seqincrement, seqmax, seqmin, seqcache, seqcycle FROM pg_catalog.pg_sequence WHERE seqrelid = '16389'::oid
+freecodecamp LOG:  statement: SELECT format_type(seqtypid, NULL), seqstart, seqincrement, seqmax, seqmin, seqcache, seqcycle FROM pg_catalog.pg_sequence WHERE seqrelid = '16402'::oid
+freecodecamp LOG:  statement: SELECT format_type(seqtypid, NULL), seqstart, seqincrement, seqmax, seqmin, seqcache, seqcycle FROM pg_catalog.pg_sequence WHERE seqrelid = '16416'::oid
+freecodecamp LOG:  statement: SELECT last_value, is_called FROM public.bikes_bike_id_seq
+freecodecamp LOG:  statement: SELECT last_value, is_called FROM public.customers_customer_id_seq
+freecodecamp LOG:  statement: SELECT last_value, is_called FROM public.rentals_rental_id_seq
+freecodecamp LOG:  statement: DECLARE _pg_dump_cursor CURSOR FOR SELECT bike_id, type, size, available FROM ONLY public.bikes
+freecodecamp LOG:  statement: FETCH 100 FROM _pg_dump_cursor
+freecodecamp LOG:  statement: FETCH 100 FROM _pg_dump_cursor
+freecodecamp LOG:  statement: CLOSE _pg_dump_cursor
+freecodecamp LOG:  statement: DECLARE _pg_dump_cursor CURSOR FOR SELECT customer_id, phone, name FROM ONLY public.customers
+freecodecamp LOG:  statement: FETCH 100 FROM _pg_dump_cursor
+freecodecamp LOG:  statement: FETCH 100 FROM _pg_dump_cursor
+freecodecamp LOG:  statement: CLOSE _pg_dump_cursor
+freecodecamp LOG:  statement: DECLARE _pg_dump_cursor CURSOR FOR SELECT rental_id, customer_id, bike_id, date_rented, date_returned FROM ONLY public.rentals
+freecodecamp LOG:  statement: FETCH 100 FROM _pg_dump_cursor
+freecodecamp LOG:  statement: FETCH 100 FROM _pg_dump_cursor
+freecodecamp LOG:  statement: CLOSE _pg_dump_cursor
+ LOG:  received smart shutdown request
+freecodecamp FATAL:  terminating connection due to administrator command
+ LOG:  background worker "logical replication launcher" (PID 871) exited with exit code 1
+ LOG:  shutting down
+ LOG:  database system is shut down
